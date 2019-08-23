@@ -131,7 +131,7 @@ class _SplashScreenState extends State<SplashScreen> {
             clipper: RoundedDiagonalPathClipper2(),
             child: Container(
               height: 40,
-              width: 35,
+              width: 40,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
                   topRight: Radius.circular(20),
@@ -190,12 +190,8 @@ class RoundedDiagonalPathClipper2 extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     final path = Path()
-      ..lineTo(0.0, size.height)
-      ..lineTo(size.width, size.height)
-      ..lineTo(size.width, size.height-10)
-      ..quadraticBezierTo(size.width, 0.0, size.width-80.0, 0.0)
-      ..lineTo(20.0, 70.0)
-      ..quadraticBezierTo(10.0, 40.0, 0.0, 40.0)
+    ..quadraticBezierTo(size.width-1, 0.0, size.width-2, size.height-20)
+      ..lineTo(size.width, 35)
       ..close();
     return path;
   }
