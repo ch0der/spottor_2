@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math' as math;
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -7,6 +8,8 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   String bodyImg = 'assets/body.png';
+  bool absSelected = false;
+  Color absColor;
 
   @override
   Widget build(BuildContext context) {
@@ -33,35 +36,42 @@ class _SplashScreenState extends State<SplashScreen> {
         Padding(
           padding: EdgeInsets.only(top: 20),
         ),
-        GestureDetector(
-          onTap: () {
-            if (bodyImg == 'assets/body.png') {
-              setState(() {
-                bodyImg = 'assets/chest.png';
-              });
-            } else {
-              setState(() {
-                bodyImg = 'assets/body.png';
-              });
-            }
-          },
-          child: Container(
-            height: 200,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage(bodyImg), fit: BoxFit.fitHeight),
+        Stack(
+          children: <Widget>[
+            Container(
+              height: 450,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage(bodyImg), fit: BoxFit.fitHeight),
+              ),
             ),
-          ),
+            Padding(
+              padding: EdgeInsets.only(
+                left: 58,
+                top: 57,
+              ),
+              child: Stack(
+                children: <Widget>[
+                  chestBody(),
+                  Padding(
+                    padding: EdgeInsets.only(
+                      top: 57,
+                      left: 5,
+                    ),
+                    child: abs2(),
+                  ),
+                ],
+              ),
+            )
+          ],
         ),
-        chestBody(),
-        abs2(),
       ],
     );
   }
 
   chestBody() {
     return Transform.scale(
-      scale: .5,
+      scale: .4,
       child: Row(
         children: <Widget>[
           Container(
@@ -122,61 +132,77 @@ class _SplashScreenState extends State<SplashScreen> {
       ],
     );
   }
-  abs2(){
-    return Row(
-      children: <Widget>[
-        Padding(padding: EdgeInsets.only(left: 100),),
-        Container(
-          child: ClipPath(
-            clipper: RoundedDiagonalPathClipper2(),
-            child: Container(
-              height: 40,
-              width: 40,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(20),
-                  bottomRight: Radius.circular(10),
-                  bottomLeft: Radius.circular(10),
-                  topLeft: Radius.circular(10),
-                ),
-                color: Colors.redAccent,
-              ),
-            ),
-          ),
-        ),
 
-        Container(
-          child: ClipPath(
-            clipper: RoundedDiagonalPathClipper(),
-            child: Container(
-              height: 40,
-              width: 35,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(20),
-                  bottomRight: Radius.circular(10),
-                  bottomLeft: Radius.circular(10),
-                  topLeft: Radius.circular(10),
+  abs2() {
+    if(absSelected == false){
+      absColor = Colors.redAccent;
+    }else{absColor = Colors.lime;}
+    return Transform.scale(
+      scale: .5,
+      child: GestureDetector(
+        onTap: (){
+          setState(() {
+            absSelected =! absSelected;
+          });
+        },
+        child: Row(
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(left: 70),
+            ),
+            Container(
+              child: ClipPath(
+                clipper: RoundedDiagonalPathClipper3(),
+                child: Container(
+                  height: 40,
+                  width: 40,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(10),
+                      bottomRight: Radius.circular(5),
+                      bottomLeft: Radius.circular(5),
+                      topLeft: Radius.circular(30),
+                    ),
+                    color: absColor,
+                  ),
                 ),
-                color: Colors.redAccent,
               ),
             ),
-          ),
+            Padding(padding: EdgeInsets.only(left: 5),),
+            Container(
+              child: ClipPath(
+                clipper: RoundedDiagonalPathClipper(),
+                child: Container(
+                  height: 40,
+                  width: 40,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(30),
+                      bottomRight: Radius.circular(5),
+                      bottomLeft: Radius.circular(5),
+                      topLeft: Radius.circular(10),
+                    ),
+                    color: absColor,
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }
+
 class RoundedDiagonalPathClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     final path = Path()
-      ..lineTo(0.0, size.height)
-      ..lineTo(size.width, size.height)
-      ..lineTo(size.width, 20.0)
-      ..quadraticBezierTo(size.width, 0.0, size.width-80.0, 0.0)
-      ..lineTo(20.0, 70.0)
-      ..quadraticBezierTo(10.0, 40.0, 0.0, 40.0)
+      ..lineTo(0.0,size.height)
+      ..lineTo(size.width,size.height)
+      ..lineTo(size.width, 35.0)
+      ..lineTo(size.height, 15)
+      ..arcToPoint(Offset(0,0.0),)
       ..close();
     return path;
   }
@@ -186,16 +212,34 @@ class RoundedDiagonalPathClipper extends CustomClipper<Path> {
     return true;
   }
 }
+
 class RoundedDiagonalPathClipper2 extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     final path = Path()
-    ..quadraticBezierTo(size.width-1, 0.0, size.width-2, size.height-20)
+      ..quadraticBezierTo(size.width - 1, 0.0, size.width - 2, size.height - 20)
       ..lineTo(size.width, 35)
       ..close();
     return path;
   }
 
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) {
+    return true;
+  }
+}
+class RoundedDiagonalPathClipper3 extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    final path = Path()
+      ..lineTo(0.0,size.height)
+      ..lineTo(size.width,size.height)
+      ..lineTo(size.width, 35.0)
+      ..lineTo(size.height, 0.0)
+      ..arcToPoint(Offset(0.0, 15),)
+      ..close();
+    return path;
+  }
   @override
   bool shouldReclip(CustomClipper<Path> oldClipper) {
     return true;
