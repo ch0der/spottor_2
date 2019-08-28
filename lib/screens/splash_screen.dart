@@ -25,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Column(
       children: <Widget>[
         Padding(
-          padding: EdgeInsets.only(top: 20),
+          padding: EdgeInsets.only(top: 40),
         ),
         Container(
           height: 60,
@@ -38,35 +38,39 @@ class _SplashScreenState extends State<SplashScreen> {
         Padding(
           padding: EdgeInsets.only(top: 20),
         ),
-        Stack(
-          children: <Widget>[
-            Container(
-              height: 450,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage(bodyImg), fit: BoxFit.fitHeight),
+        Padding(
+          padding: EdgeInsets.only(left: 130),
+          child: Stack(
+            children: <Widget>[
+              Container(
+                height: 450,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage(bodyImg), fit: BoxFit.fitHeight),
+                ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(
-                left: 58,
-                top: 57,
-              ),
-              child: Stack(
-                children: <Widget>[
-                  chestBody(),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: 36,
-                      left: 50,
+              Padding(
+                padding: EdgeInsets.only(
+                  left: 58,
+                  top: 57,
+                ),
+                child: Stack(
+                  children: <Widget>[
+                    chestBody(),
+                    Padding(
+                      padding: EdgeInsets.only(
+                        top: 36,
+                        left: 50,
+                      ),
+                      child: abs2(),
                     ),
-                    child: abs2(),
-                  ),
-                ],
-              ),
-            )
-          ],
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
+        bottomBar(),
       ],
     );
   }
@@ -78,9 +82,9 @@ class _SplashScreenState extends State<SplashScreen> {
       chestColor = Colors.blueAccent;
     }
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         setState(() {
-          chestSelected =! chestSelected;
+          chestSelected = !chestSelected;
         });
       },
       child: Transform.scale(
@@ -140,11 +144,17 @@ class _SplashScreenState extends State<SplashScreen> {
           children: <Widget>[
             Row(
               children: <Widget>[
-
                 Container(
                   child: ClipPath(
                     clipper: RoundedDiagonalPathClipper3(),
-                    child: absContainer(height: 40,width: 40,topL: 30,topR: 10,botL: 5,botR: 5,color: absColor),
+                    child: absContainer(
+                        height: 40,
+                        width: 40,
+                        topL: 30,
+                        topR: 10,
+                        botL: 5,
+                        botR: 5,
+                        color: absColor),
                   ),
                 ),
                 Padding(
@@ -153,18 +163,31 @@ class _SplashScreenState extends State<SplashScreen> {
                 Container(
                   child: ClipPath(
                     clipper: RoundedDiagonalPathClipper(),
-                    child: absContainer(height: 40,width: 40,topL: 10,topR: 30,botL: 5,botR: 5,color: absColor),
+                    child: absContainer(
+                        height: 40,
+                        width: 40,
+                        topL: 10,
+                        topR: 30,
+                        botL: 5,
+                        botR: 5,
+                        color: absColor),
                   ),
                 ),
               ],
             ),
             Row(
               children: <Widget>[
-
                 Container(
                   child: ClipPath(
                     clipper: AbsClipper22(),
-                    child: absContainer(height: 40,width: 40,topL: 10,topR: 10,botL: 5,botR: 5,color: absColor),
+                    child: absContainer(
+                        height: 40,
+                        width: 40,
+                        topL: 10,
+                        topR: 10,
+                        botL: 5,
+                        botR: 5,
+                        color: absColor),
                   ),
                 ),
                 Padding(
@@ -173,7 +196,14 @@ class _SplashScreenState extends State<SplashScreen> {
                 Container(
                   child: ClipPath(
                     clipper: AbsClipper2(),
-                    child: absContainer(height: 40,width: 40,topL: 10,topR: 10,botL: 5,botR: 5,color: absColor),
+                    child: absContainer(
+                        height: 40,
+                        width: 40,
+                        topL: 10,
+                        topR: 10,
+                        botL: 5,
+                        botR: 5,
+                        color: absColor),
                   ),
                 ),
               ],
@@ -183,7 +213,14 @@ class _SplashScreenState extends State<SplashScreen> {
                 Container(
                   child: ClipPath(
                     clipper: AbsClipper33(),
-                    child: absContainer(height: 50,width: 40,topL: 10,topR: 20,botL: 50,botR: 5,color: absColor),
+                    child: absContainer(
+                        height: 50,
+                        width: 40,
+                        topL: 10,
+                        topR: 20,
+                        botL: 50,
+                        botR: 5,
+                        color: absColor),
                   ),
                 ),
                 Padding(
@@ -192,7 +229,14 @@ class _SplashScreenState extends State<SplashScreen> {
                 Container(
                   child: ClipPath(
                     clipper: AbsClipper3(),
-                    child: absContainer(height: 50,width: 40,topL: 20,topR: 10,botL: 5,botR: 50,color: absColor),
+                    child: absContainer(
+                        height: 50,
+                        width: 40,
+                        topL: 20,
+                        topR: 10,
+                        botL: 5,
+                        botR: 50,
+                        color: absColor),
                   ),
                 ),
               ],
@@ -200,6 +244,27 @@ class _SplashScreenState extends State<SplashScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  bottomBar() {
+    return Row(
+      children: <Widget>[
+        Container(
+          height: 20,
+          width: 60,
+          decoration: BoxDecoration(
+            color: Colors.black54,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.lime,
+                offset: Offset.fromDirection(5, -5),
+              ),
+            ],
+          ),
+          child: Text('chest'),
+        ),
+      ],
     );
   }
 }
@@ -330,7 +395,8 @@ class AbsClipper3 extends CustomClipper<Path> {
   }
 }
 
-absContainer({double height,
+absContainer(
+    {double height,
     double width,
     double topR,
     double topL,
