@@ -13,6 +13,8 @@ class _SplashScreenState extends State<SplashScreen> {
   bool chestSelected = false;
   Color chestColor;
 
+  bool chestVis = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
         Row(
           children: <Widget>[
             Container(
-             child: buildBody(),
+              child: buildBody(),
             ),
             Container(
               height: 400,
@@ -36,21 +38,24 @@ class _SplashScreenState extends State<SplashScreen> {
               color: Colors.teal,
             ),
           ],
-
         ),
-        Column(
-
+        Padding(
+          padding: EdgeInsets.only(top: 20),
         ),
+        Padding(
+          padding: EdgeInsets.only(left: 20),
+          child: bottomBar(),
+        )
       ],
     );
   }
-  title(){
+
+  title() {
     return Container(
       height: 40,
       decoration: BoxDecoration(
         image: DecorationImage(
-            image: AssetImage('assets/LogoMain.png'),
-            fit: BoxFit.fitHeight),
+            image: AssetImage('assets/LogoMain.png'), fit: BoxFit.fitHeight),
       ),
     );
   }
@@ -58,43 +63,39 @@ class _SplashScreenState extends State<SplashScreen> {
   buildBody() {
     return Column(
       children: <Widget>[
-        Padding(
-          padding: EdgeInsets.only(),
-          child: Stack(
-            children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(top: 30),
-                  child: Container(
-                    height: 450,
-                    width: 150,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage(bodyImg), fit: BoxFit.scaleDown),
-                    ),
-              ),
-                ),
-              Padding(
-                padding: EdgeInsets.only(top: 55),
-                child: Stack(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.only(),
-                      child: chestBody(),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                        top: 36,
-                        left: 43,
-                      ),
-                      child: abs2(),
-                    ),
-                  ],
+        Stack(
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(top: 30),
+              child: Container(
+                height: 450,
+                width: 150,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage(bodyImg), fit: BoxFit.scaleDown),
                 ),
               ),
-            ],
-          ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 55),
+              child: Stack(
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(),
+                    child: chestBody(),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                      top: 36,
+                      left: 43,
+                    ),
+                    child: abs2(),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
-        bottomBar(),
       ],
     );
   }
@@ -274,20 +275,7 @@ class _SplashScreenState extends State<SplashScreen> {
   bottomBar() {
     return Row(
       children: <Widget>[
-        Container(
-          height: 20,
-          width: 60,
-          decoration: BoxDecoration(
-            color: Colors.black54,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.lime,
-                offset: Offset.fromDirection(5, -5),
-              ),
-            ],
-          ),
-          child: Text('chest'),
-        ),
+        partContainer('Chest', 'chest', chestVis),
       ],
     );
   }
@@ -438,6 +426,18 @@ absContainer(
         topLeft: Radius.circular(topL),
       ),
       color: color,
+    ),
+  );
+}
+partContainer(String text, String part,bool visible){
+  return Visibility(
+    visible: visible,
+    child: Container(
+      height: 20,
+      width: 50,
+      decoration: BoxDecoration(
+        color: Colors.black38,
+      ),child: Text(text),
     ),
   );
 }
