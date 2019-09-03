@@ -17,7 +17,41 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
-      body: buildBody(),
+      body: buildPage(),
+    );
+  }
+
+  buildPage() {
+    return Column(
+      children: <Widget>[
+        title(),
+        Row(
+          children: <Widget>[
+            Container(
+             child: buildBody(),
+            ),
+            Container(
+              height: 400,
+              width: 200,
+              color: Colors.teal,
+            ),
+          ],
+
+        ),
+        Column(
+
+        ),
+      ],
+    );
+  }
+  title(){
+    return Container(
+      height: 40,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+            image: AssetImage('assets/LogoMain.png'),
+            fit: BoxFit.fitHeight),
+      ),
     );
   }
 
@@ -25,48 +59,38 @@ class _SplashScreenState extends State<SplashScreen> {
     return Column(
       children: <Widget>[
         Padding(
-          padding: EdgeInsets.only(top: 40),
-        ),
-        Container(
-          height: 60,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage('assets/LogoMain.png'),
-                fit: BoxFit.fitHeight),
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(top: 20),
-        ),
-        Padding(
-          padding: EdgeInsets.only(left: 130),
+          padding: EdgeInsets.only(),
           child: Stack(
             children: <Widget>[
-              Container(
-                height: 450,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage(bodyImg), fit: BoxFit.fitHeight),
-                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 30),
+                  child: Container(
+                    height: 450,
+                    width: 150,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage(bodyImg), fit: BoxFit.scaleDown),
+                    ),
               ),
-              Padding(
-                padding: EdgeInsets.only(
-                  left: 58,
-                  top: 57,
                 ),
+              Padding(
+                padding: EdgeInsets.only(top: 55),
                 child: Stack(
                   children: <Widget>[
-                    chestBody(),
+                    Padding(
+                      padding: EdgeInsets.only(),
+                      child: chestBody(),
+                    ),
                     Padding(
                       padding: EdgeInsets.only(
                         top: 36,
-                        left: 50,
+                        left: 43,
                       ),
                       child: abs2(),
                     ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),
