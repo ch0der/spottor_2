@@ -13,7 +13,7 @@ class _SplashScreenState extends State<SplashScreen> {
   bool chestSelected = false;
   Color chestColor;
 
-  bool chestVis = true;
+  bool chestVis = false;
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +77,7 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(top: 55),
+              padding: EdgeInsets.only(top: 60),
               child: Stack(
                 children: <Widget>[
                   Padding(
@@ -103,8 +103,10 @@ class _SplashScreenState extends State<SplashScreen> {
   chestBody() {
     if (chestSelected == false) {
       chestColor = Colors.red[200];
+      chestVis = false;
     } else {
       chestColor = Colors.blueAccent;
+      chestVis = true;
     }
     return GestureDetector(
       onTap: () {
@@ -275,7 +277,7 @@ class _SplashScreenState extends State<SplashScreen> {
   bottomBar() {
     return Row(
       children: <Widget>[
-        partContainer('Chest', 'chest', chestVis),
+        partContainer2(chestVis),
       ],
     );
   }
@@ -441,3 +443,79 @@ partContainer(String text, String part,bool visible){
     ),
   );
 }
+partContainer2(bool visible){
+  return HomepageButton(
+    text: 'Chest',
+    paused:  visible,
+  );
+}
+
+class HomepageButton extends StatefulWidget {
+  HomepageButton({
+    Key key,
+    this.text,
+    this.paused,
+
+}) : super(key: key);
+
+  final String text;
+  final bool paused;
+
+
+  @override
+  _HomepageButtonState createState() => _HomepageButtonState();
+}
+
+class _HomepageButtonState extends State<HomepageButton> with TickerProviderStateMixin {
+  Animation<double> buttonAnimation1;
+  AnimationController buttonController1;
+  double value1 = 1.0;
+  double value2 = 2.0;
+
+  @override
+  void dispose(){
+    super.dispose();
+  }
+  @override
+  void initState(){
+  super.initState();
+
+  buttonController1 = AnimationController(
+    vsync: this,
+    duration: Duration(seconds: 1),
+  );
+  buttonAnimation1 = Tween(
+    begin: value1,
+    end: value2,
+  ).animate(CurvedAnimation(parent: buttonController1,curve: Curves.easeInCubic),);
+  buttonAnimation1.addStatusListener((status){
+    if (widget.paused == false){buttonController1.forward();}
+  });
+
+
+  }
+
+
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      builder: (context,child){
+        if(widget.paused == true){buttonController1.forward();}
+        return Transform.scale(scale: buttonAnimation1.value,child: child,);
+      },
+      animation: buttonAnimation1,
+      child: GestureDetector(
+        onDoubleTap: (){
+          buttonController1.forward();
+        },
+        child: Container(
+          height: 100,
+          width: 50,
+          decoration: BoxDecoration(
+            color: Colors.black38,
+          ),child: Text(widget.text),
+        ),
+      ),
+    );
+  }
+}
+
