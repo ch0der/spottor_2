@@ -6,15 +6,65 @@ class SplashScreen extends StatefulWidget {
   _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMixin{
   String bodyImg = 'assets/body.png';
   bool absSelected = false;
   Color absColor;
-  bool chestSelected;
-  Color chestColor;
+  bool chestSelected = false;
+  Color chestColor = Colors.red[200];
   bool test2 = false;
+  Color penis = Colors.red[200];
+  Color balls = Colors.blue;
 
   bool chestVis = false;
+  Animation<double> buttonAnimation1;
+  Animation<double> buttonAnimation2;
+  AnimationController chestbuttonController1;
+
+  double value1 = 0;
+  double value2 = 1;
+  @override
+  void dispose(){
+    super.dispose();
+  }
+  @override
+  void initState(){
+    super.initState();
+
+    chestbuttonController1 = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 500),
+    );
+    buttonAnimation1 = Tween(
+      begin: value1,
+      end: value2,
+    ).animate(CurvedAnimation(parent: chestbuttonController1,curve: Curves.fastOutSlowIn),);
+
+    buttonAnimation2 = Tween(
+      begin: value2,
+      end: value1,
+    ).animate(CurvedAnimation(parent: chestbuttonController1,curve: Curves.easeInCubic),);
+
+
+  }
+  bodyOnTap(bool selected, AnimationController controller){
+    setState(() {
+      selected = !selected;
+    });
+    controller.stop();
+    if(controller.status == AnimationStatus.dismissed){
+      controller.forward();
+    }
+    else if(controller.status == AnimationStatus.completed){
+      controller.reverse();
+    }
+    else if(controller.status == AnimationStatus.forward){
+      controller.reverse();
+    }
+    else if(controller.status == AnimationStatus.reverse){
+      controller.forward();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +133,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 children: <Widget>[
                   Padding(
                     padding: EdgeInsets.only(),
-                    child: chestBody(),
+                    child: TestBody(child: chestBody(chestSelected,chestbuttonController1),)
                   ),
                   Padding(
                     padding: EdgeInsets.only(
@@ -101,26 +151,34 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 
-  chestBody() {
-    if (chestSelected == false) {
-      chestColor = Colors.red[200];
-      chestVis = false;
-    } else {
-      chestColor = Colors.blueAccent;
-      chestVis = true;
-    }
+  chestBody(bool selected, AnimationController controller) {
+     bool selectTest = selected;
+     Color color1 = chestColor;
+     Color partColor = Colors.amber;
+
     return GestureDetector(
-      onTap: () {
-        if(chestColor == Colors.red[200]){
+      onTap: (){
+        if (chestColor == Colors.red[200]) {
           setState(() {
-            chestSelected = !chestSelected;
+            chestColor = Colors.blue;
+          });
+        } else if (chestColor == Colors.blue){
+          setState(() {
+            chestColor = Colors.red[200];
           });
         }
-        if (chestColor == Colors.blueAccent){
-          setState(() {
-            test2 = true;
-            chestSelected = !chestSelected;
-          });
+        controller.stop();
+        if(controller.status == AnimationStatus.dismissed){
+          controller.forward();
+        }
+        else if(controller.status == AnimationStatus.completed){
+          controller.reverse();
+        }
+        else if(controller.status == AnimationStatus.forward){
+          controller.reverse();
+        }
+        else if(controller.status == AnimationStatus.reverse){
+          controller.forward();
         }
       },
       child: Transform.scale(
@@ -131,7 +189,7 @@ class _SplashScreenState extends State<SplashScreen> {
               height: 100,
               width: 100,
               decoration: BoxDecoration(
-                color: chestColor,
+                color: color1,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(40),
                   bottomLeft: Radius.elliptical(60, 40),
@@ -147,7 +205,7 @@ class _SplashScreenState extends State<SplashScreen> {
               height: 100,
               width: 100,
               decoration: BoxDecoration(
-                color: chestColor,
+                color: partColor,
                 borderRadius: BorderRadius.only(
                   topRight: Radius.circular(40),
                   bottomRight: Radius.elliptical(60, 40),
@@ -286,9 +344,30 @@ class _SplashScreenState extends State<SplashScreen> {
   bottomBar() {
     return Row(
       children: <Widget>[
-        partContainer2(chestVis,test2),
+        bodyPartButton('chest',buttonAnimation1),
+
       ],
     );
+  }
+
+  Widget bodyPartButton(String text,Animation animation){
+    return AnimatedBuilder(
+      builder: (context,child){
+        return Transform.scale(scale: animation.value,child: child,);
+      },
+      animation: animation,
+      child: Container(
+        height: 30,
+        width: 75,
+        decoration: BoxDecoration(
+          color: Colors.black38,
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+        ),child: Center(child: Text(text)),
+      ),
+    );
+  }
+  Widget bodyPartWrapper(){
+    return(Container());
   }
 }
 
@@ -445,99 +524,50 @@ partContainer(String text, String part,bool visible){
     visible: visible,
     child: Container(
       height: 20,
-      width: 50,
+      width: 30,
       decoration: BoxDecoration(
         color: Colors.black38,
       ),child: Text(text),
     ),
   );
 }
-partContainer2(bool visible,bool test2){
-  return HomepageButton(
-    text: 'Chest',
-    paused:  visible,
-    test2: test2,
-  );
+class TestBody extends StatefulWidget {
+  TestBody({this.child});
+
+  final Widget child;
+  @override
+  _TestBodyState createState() => _TestBodyState();
 }
 
-class HomepageButton extends StatefulWidget {
-  HomepageButton({
-    Key key,
-    this.text,
-    this.paused,
-    this.test2
-
-}) : super(key: key);
-
-  final String text;
-  final bool paused;
-  bool test2;
+class _TestBodyState extends State<TestBody> {
+  Color unSelected = Colors.yellow;
+  Color isSelected = Colors.black;
+  bool selected = false;
 
 
   @override
-  _HomepageButtonState createState() => _HomepageButtonState();
-}
-
-class _HomepageButtonState extends State<HomepageButton> with TickerProviderStateMixin {
-  Animation<double> buttonAnimation1;
-  Animation<double> buttonAnimation2;
-  AnimationController buttonController1;
-
-  double value1 = 1.0;
-  double value2 = 2.0;
-
-  @override
-  void dispose(){
-    super.dispose();
-  }
-  @override
-  void initState(){
-  super.initState();
-
-  buttonController1 = AnimationController(
-    vsync: this,
-    duration: Duration(seconds: 1),
-  );
-  buttonAnimation1 = Tween(
-    begin: value1,
-    end: value2,
-  ).animate(CurvedAnimation(parent: buttonController1,curve: Curves.easeInCubic),);
-  buttonAnimation1.addStatusListener((status){
-    if (widget.test2 == true){buttonController1.reverse();}
-  });
-  buttonAnimation2 = Tween(
-    begin: value2,
-    end: value1,
-  ).animate(CurvedAnimation(parent: buttonController1,curve: Curves.easeInCubic),);
-
-
-  }
-
-
   Widget build(BuildContext context) {
-    bool test3 = widget.test2;
+    Color color1 = unSelected;
 
-    return AnimatedBuilder(
-      builder: (context,child){
-        if(widget.paused == true){buttonController1.forward();}
-        if(test3 == true){buttonController1.reverse();}
-        return Transform.scale(scale: buttonAnimation1.value,child: child,);
-      },
-      animation: buttonAnimation1,
+    return Theme(
+      data: ThemeData(primaryColor: color1),
       child: GestureDetector(
-        onDoubleTap: (){
-          buttonController1.animateBack(1,duration: Duration(seconds: 1),);
-          print('ok');
+        onTap: (){
+          if(color1 == unSelected){
+            setState(() {
+              color1 = isSelected;
+            });
+          } else {setState(() {
+            color1 = unSelected;
+          });}
         },
         child: Container(
-          height: 100,
-          width: 50,
-          decoration: BoxDecoration(
-            color: Colors.black38,
-          ),child: Text(widget.text),
+          child: widget.child,
+
         ),
       ),
     );
   }
 }
+
 
