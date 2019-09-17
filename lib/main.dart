@@ -1,18 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:spottor_2/screens/splash_screen.dart';
+import 'library.dart';
+import 'package:flutter/rendering.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  debugPaintSizeEnabled=false;
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  runApp(MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'TODO LIST',
+      // Start the app with the "/" named route. In our case, the app will start
+      // on the FirstScreen Widget
+      initialRoute: '/',
+      routes: {
+        // When we navigate to the "/" route, build the FirstScreen Widget
+        '/': (context) => MyApp(),
+        '/second':(context) => SplashScreen(),
+        // When we navigate to the "/second" route, build the SecondScreen Widget
+
+      },
+    ),
+  );
+}
+
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+
+
+
+
+  @override
+  void initState() {
+    super.initState();
+
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: SplashScreen(),
-    );
+    return LogoScreen();
   }
 }
