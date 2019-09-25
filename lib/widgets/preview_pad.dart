@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:spottor_2/resources/blocs/font_bloc.dart';
+import 'dart:async';
 
 class PreviewPad extends StatefulWidget {
   @override
@@ -7,21 +9,19 @@ class PreviewPad extends StatefulWidget {
 }
 
 class _PreviewPadState extends State<PreviewPad> {
+  final fontBloc = FontBloc();
   String _padFont;
   @override
-  void initState(){
+  void initState() {
     super.initState();
-    _getFont();
+    fontBloc.getFont();
   }
 
-  Future<void> _getFont() async{
-    final prefs = await SharedPreferences.getInstance();
-    final font = prefs.getString('font');
-    setState(() {
-      _padFont = font;
-    });
+  @override
+  void dispose() {
+    fontBloc.dispose();
+    super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,12 @@ class _PreviewPadState extends State<PreviewPad> {
           ListView.separated(
             itemBuilder: (BuildContext context, int index) => Padding(
               padding: EdgeInsets.all(5),
-              child: Text("This is an example of text $index",style: TextStyle(fontFamily: _padFont,fontSize: 25),),
+              child: ListTile(
+                title: Text(
+                  "This is an example of text $index",
+                  style: TextStyle(fontSize: 25),
+                ),
+              ),
             ),
             itemCount: 20,
             separatorBuilder: (context, index) => Divider(
@@ -52,5 +57,13 @@ class _PreviewPadState extends State<PreviewPad> {
         ],
       ),
     );
+  }
+  Future<void> changeFont(String font)async{
+    final prefs = await SharedPreferences.getInstance();
+    final String newFont = font;
+    await prefs.setString('font',newFont);
+    setState(() {
+      _padFont = newFont;
+    });
   }
 }

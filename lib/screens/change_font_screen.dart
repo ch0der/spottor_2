@@ -1,7 +1,16 @@
+import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:spottor_2/resources/blocs/font_bloc.dart';
 
-class FontTest extends StatelessWidget {
+class FontTest extends StatefulWidget {
+  @override
+  _FontTestState createState() => _FontTestState();
+}
+
+class _FontTestState extends State<FontTest> {
+  final bloc = FontBloc();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,7 +28,7 @@ class FontTest extends StatelessWidget {
           ),
           RaisedButton(
             onPressed: (){
-              changeFont('Mansalva');
+              changeFont1('Mansalva');
 
             },
             child: Text(
@@ -31,9 +40,15 @@ class FontTest extends StatelessWidget {
       ),
     );
   }
+
   Future<void> changeFont(String font)async{
     final prefs = await SharedPreferences.getInstance();
     final String newFont = font;
     await prefs.setString('font',newFont);
+  }
+
+  void changeFont1(String str) {
+    DynamicTheme.of(context).setThemeData(ThemeData(
+      fontFamily: str));
   }
 }

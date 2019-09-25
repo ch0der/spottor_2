@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:spottor_2/screens/change_font_screen.dart';
 import 'package:spottor_2/widgets/preview_pad.dart';
+import 'package:spottor_2/resources/blocs/font_bloc.dart';
 
 class LogoScreen extends StatefulWidget {
   @override
@@ -8,13 +10,21 @@ class LogoScreen extends StatefulWidget {
 }
 
 class _LogoScreenState extends State<LogoScreen> {
+
+  final fontBloc = FontBloc();
+  String font;
   int _currentIndex = 0;
   final List<Widget> _children = [
     PreviewPad(),
     FontTest(),
     FontTest(),
-
   ];
+  @override
+  void initState(){
+    super.initState();
+    fontBloc.getFont();
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +58,12 @@ class _LogoScreenState extends State<LogoScreen> {
           ListView.separated(
             itemBuilder: (BuildContext context, int index) => Padding(
               padding: EdgeInsets.all(5),
-              child: Text("This is an example of text $index",style: TextStyle(fontFamily: "Satisfy",fontSize: 25),),
+              child: StreamBuilder(
+                stream: fontBloc.font,
+                builder: (context,snapshot){
+                  return Text("This is an example of text $index",style: TextStyle(fontFamily: snapshot.data,fontSize: 25),);
+                },
+              ),
             ),
             itemCount: 20,
             separatorBuilder: (context, index) => Divider(
@@ -73,5 +88,13 @@ class _LogoScreenState extends State<LogoScreen> {
     setState(() {
       _currentIndex = index;
     });
+  }
+  Future<void> getFont()async {
+    final prefs = await SharedPreferences.getInstance();
+    final thisFont = prefs.getString('font');
+    setState(() {
+      font = thisFont;
+    });
+
   }
 }
