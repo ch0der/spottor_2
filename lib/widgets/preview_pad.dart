@@ -30,23 +30,20 @@ class _PreviewPadState extends State<PreviewPad> {
       child: Stack(
         children: <Widget>[
           ListView.separated(
-            itemBuilder: (BuildContext context, int index) => Padding(
-              padding: EdgeInsets.all(5),
-              child: ListTile(
-                title: Text(
-                  "This is an example of text $index",
-                  style: TextStyle(fontSize: 25),
-                ),
+            itemBuilder: (BuildContext context, int index) => ListTile(
+              title: Text(
+                "This is an example of text $index",
+                style: TextStyle(fontSize: 25),
               ),
             ),
             itemCount: 20,
             separatorBuilder: (context, index) => Divider(
-              height: 2,
+              height:0,
               color: Colors.blue,
             ),
           ),
           Positioned(
-              left: 30,
+              left: 70,
               child: Container(
                 height: 1000,
                 width: 1,
