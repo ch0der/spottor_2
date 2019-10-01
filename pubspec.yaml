@@ -50,6 +50,8 @@ flutter:
     - assets/body.png
     - assets/chest.png
     - assets/LogoMain.png
+    - assets/imgs/newLogo.png
+    - assets/imgs/splash_background.jpg
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
