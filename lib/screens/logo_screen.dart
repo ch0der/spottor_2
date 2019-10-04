@@ -29,6 +29,8 @@ class _LogoScreenState extends State<LogoScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text('temp'),),
+      drawer: homeDrawer(),
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
@@ -96,5 +98,16 @@ class _LogoScreenState extends State<LogoScreen> {
       font = thisFont;
     });
 
+  }
+  homeDrawer(){
+    return Drawer(
+      child: Container(
+        height: 30,
+        width: 30,
+        color: Colors.brown,
+      ),
+
+
+    );
   }
 }
