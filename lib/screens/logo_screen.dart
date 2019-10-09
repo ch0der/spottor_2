@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:spottor_2/screens/change_font_screen.dart';
+import 'package:spottor_2/screens/pad.dart';
 import 'package:spottor_2/widgets/preview_pad.dart';
 import 'package:spottor_2/resources/blocs/font_bloc.dart';
 
@@ -16,7 +17,7 @@ class _LogoScreenState extends State<LogoScreen> {
   int _currentIndex = 0;
   final List<Widget> _children = [
     PreviewPad(),
-    FontTest(),
+    PadTest(),
     FontTest(),
   ];
   @override
@@ -41,7 +42,7 @@ class _LogoScreenState extends State<LogoScreen> {
             title: Text('Home'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.backup),
+            icon: Icon(Icons.event_note),
             title: Text('test'),
           ),
           BottomNavigationBarItem(

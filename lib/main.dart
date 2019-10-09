@@ -23,6 +23,7 @@ void main() {
             '/': (context) => MyApp(),
             '/second': (context) => LogoScreen(),
             '/splash': (context) => SplashScreen2(),
+            '/demo': (context) => PadDemo(),
             // When we navigate to the "/second" route, build the SecondScreen Widget
           },
         );

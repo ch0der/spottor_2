@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 class SplashScreen2 extends StatefulWidget {
@@ -20,10 +22,13 @@ class _SplashScreenState extends State<SplashScreen2> {
         image: DecorationImage(
           fit: BoxFit.cover,
           image: AssetImage('assets/imgs/splash_background.jpg'),
-          colorFilter: ColorFilter.mode(Colors.lightGreen[100].withOpacity(1), BlendMode.modulate),
+          colorFilter: ColorFilter.mode(Colors.lightGreen[200].withOpacity(.8), BlendMode.modulate,),
         ),
       ),
-      child: loginBody(),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 2.5,sigmaY: 2.5),
+        child: loginBody(),
+      ),
     );
   }
   loginBody(){
