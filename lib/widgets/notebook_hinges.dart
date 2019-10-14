@@ -1,111 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:spottor_2/widgets/notebook_hinges.dart';
 
-class PadTest extends StatefulWidget {
-  @override
-  _PadTestState createState() => _PadTestState();
-}
-
-class _PadTestState extends State<PadTest> {
+class NotebookHinges extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Center(
-      child: buildBody(),
-    ));
-  }
-
-  buildBody() {
-    return Column(
-      children: <Widget>[
-        Container(
-          height: 100,
-        ),
-        GestureDetector(
-          onTap: () {
-            Navigator.pushNamed(context, '/demo');
-          },
-          child: Stack(
-            overflow: Overflow.visible,
-            children: <Widget>[
-              Container(
-                height: 215,
-                width: 150,
-                decoration: BoxDecoration(
-                  color: Colors.green[200],
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(.6),
-                      offset: Offset.fromDirection(10.0, -5.0),
-                      spreadRadius: 0,
-                      blurRadius: 5.0,
-                    ),
-                  ],
-                ),
-              ),
-              Positioned(top: -240, left: -20, child: hinges()),
-              Positioned(
-                bottom: 0,
-                right: 10,
-                child: Visibility(
-                  visible: false,
-                  child: Container(
-                    height: 40,
-                    width: 40,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/imgs/icon.white.png'),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                top: 20,
-                left: 33,
-                child: Container(
-                  height: 40,
-                  width: 90,
-                  decoration: BoxDecoration(
-                    color: Colors.white70,
-                  ),
-                  child: Center(
-                      child: Column(
-                    children: <Widget>[
-                      SizedBox(
-                        height: 20,
-                        child: Text(
-                          'MONDAY',
-                          style: TextStyle(
-                            fontFamily: 'Marker',
-                            fontSize: 18,
-
-                          ),
-                        ),
-                      ),
-                      Text(
-                        'Back & Biceps',
-                        style: TextStyle(fontSize: 11,fontFamily: 'Marker'),
-                      ),
-                    ],
-                  )),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
+    return Container(
+      child: hinges(),
     );
   }
-
   hinges() {
-    double spacing = 20;
-
+    final double spacing = 40;
     return Transform.scale(
-      scale: .3,
-      child: Column(
+      scale: .2,
+      child: (Column(
         children: <Widget>[
-          hinge(),
           Padding(
             padding: EdgeInsets.only(top: spacing),
           ),
@@ -178,15 +85,8 @@ class _PadTestState extends State<PadTest> {
             padding: EdgeInsets.only(top: spacing),
           ),
           hinge(),
-          Padding(
-            padding: EdgeInsets.only(top: spacing),
-          ),
-          hinge(),
-          Padding(
-            padding: EdgeInsets.only(top: spacing),
-          ),
         ],
-      ),
+      )),
     );
   }
 
