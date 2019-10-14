@@ -30,7 +30,7 @@ class _LogoScreenState extends State<LogoScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('temp'),),
+      appBar: AppBar(title: Text('temp'),backgroundColor: Colors.green[800].withOpacity(.5),),
       drawer: homeDrawer(),
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
