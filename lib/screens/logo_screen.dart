@@ -11,6 +11,7 @@ class LogoScreen extends StatefulWidget {
 }
 
 class _LogoScreenState extends State<LogoScreen> {
+  String title = 'test';
 
   final fontBloc = FontBloc();
   String font;
@@ -21,16 +22,32 @@ class _LogoScreenState extends State<LogoScreen> {
     FontTest(),
   ];
   @override
-  void initState(){
+  void initState() {
     super.initState();
     fontBloc.getFont();
-
   }
 
   @override
   Widget build(BuildContext context) {
+    if (_currentIndex == 2) {
+      setState(() {
+        title = 'hello';
+      });
+    }
+    if (_currentIndex == 1) {
+      setState(() {
+        title = 'hello1';
+      });
+    }
     return Scaffold(
-      appBar: AppBar(title: Text('temp'),backgroundColor: Colors.green[800].withOpacity(.5),),
+      appBar: AppBar(
+        title: Text(title),
+        backgroundColor: Colors.green[800].withOpacity(.5),
+        elevation: 5,
+        actions: <Widget>[
+          Icon(Icons.title,size: 50,),
+        ],
+      ),
       drawer: homeDrawer(),
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
@@ -53,7 +70,8 @@ class _LogoScreenState extends State<LogoScreen> {
       ),
     );
   }
-  buildBody(){
+
+  buildBody() {
     return Container(
       constraints: BoxConstraints.expand(),
       child: Stack(
@@ -63,8 +81,11 @@ class _LogoScreenState extends State<LogoScreen> {
               padding: EdgeInsets.all(5),
               child: StreamBuilder(
                 stream: fontBloc.font,
-                builder: (context,snapshot){
-                  return Text("This is an example of text $index",style: TextStyle(fontFamily: snapshot.data,fontSize: 25),);
+                builder: (context, snapshot) {
+                  return Text(
+                    "This is an example of text $index",
+                    style: TextStyle(fontFamily: snapshot.data, fontSize: 25),
+                  );
                 },
               ),
             ),
@@ -87,28 +108,59 @@ class _LogoScreenState extends State<LogoScreen> {
       ),
     );
   }
+
   void _onTabTapped(int index) {
     setState(() {
       _currentIndex = index;
     });
   }
-  Future<void> getFont()async {
+
+  Future<void> getFont() async {
     final prefs = await SharedPreferences.getInstance();
     final thisFont = prefs.getString('font');
     setState(() {
       font = thisFont;
     });
-
   }
-  homeDrawer(){
-    return Drawer(
-      child: Container(
-        height: 30,
-        width: 30,
-        color: Colors.brown,
+
+  homeDrawer() {
+    return Container(
+      width: 200,
+      child: Drawer(
+        child: ListView(
+          // Important: Remove any padding from the ListView.
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            Container(
+              height: 100,
+              child: DrawerHeader(
+                child: Text('Drawer Header'),
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                ),
+              ),
+            ),
+            ListTile(
+              title: Text('Item 1'),
+              onTap: () {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: Text('Item 2'),
+              onTap: () {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
       ),
-
-
     );
   }
 }
