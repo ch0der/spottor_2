@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:spottor_2/screens/change_font_screen.dart';
+import 'package:spottor_2/screens/editor.dart';
 import 'package:spottor_2/screens/pad.dart';
 import 'package:spottor_2/widgets/preview_pad.dart';
 import 'package:spottor_2/resources/blocs/font_bloc.dart';
@@ -20,6 +21,7 @@ class _LogoScreenState extends State<LogoScreen> {
     PreviewPad(),
     PadTest(),
     FontTest(),
+    BuildEditor(),
   ];
   @override
   void initState() {
@@ -51,6 +53,9 @@ class _LogoScreenState extends State<LogoScreen> {
       drawer: homeDrawer(),
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.blueAccent[200],
+        selectedItemColor: Colors.white70,
         currentIndex: _currentIndex,
         onTap: _onTabTapped,
         items: [
@@ -65,6 +70,10 @@ class _LogoScreenState extends State<LogoScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.text_fields),
             title: Text('Style'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.edit),
+            title: Text('Editor'),
           ),
         ],
       ),
