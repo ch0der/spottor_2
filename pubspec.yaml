@@ -28,10 +28,10 @@ dependencies:
   dynamic_theme: ^1.0.1
 
 
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
 
 
 # For information on the generic Dart part of this file, see the
@@ -55,6 +55,7 @@ flutter:
     - assets/imgs/icon.png
     - assets/imgs/icon.white.png
     - assets/imgs/icongray.png
+    - assets/imgs/icon-small-white.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

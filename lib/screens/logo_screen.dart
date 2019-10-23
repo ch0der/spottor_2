@@ -47,14 +47,17 @@ class _LogoScreenState extends State<LogoScreen> {
         backgroundColor: Colors.green[800].withOpacity(.5),
         elevation: 5,
         actions: <Widget>[
-          Icon(Icons.title,size: 50,),
+          SizedBox(
+            width: 50,
+            child: Image(image: AssetImage('assets/imgs/icon-small-white.png'),),
+          ),
         ],
       ),
       drawer: homeDrawer(),
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.blueAccent[200],
+        backgroundColor: Color.fromRGBO(130, 227, 135, 1),
         selectedItemColor: Colors.white70,
         currentIndex: _currentIndex,
         onTap: _onTabTapped,

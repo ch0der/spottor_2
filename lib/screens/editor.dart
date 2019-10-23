@@ -16,15 +16,28 @@ class _BuildEditorState extends State<BuildEditor> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
+        Padding(padding: EdgeInsets.only(top: 300),),
+        otherDetails(),
+      ],
+    );
+  }
+  otherDetails(){
+    return Row(
+      children: <Widget>[
+        Padding(padding: EdgeInsets.only(left: 10),),
         DetailsItem(
-          rList: <String>['item1', 'item2', 'item3'],
-          hint: 'hint',
-          label: 'label',
+          rList: <String>['Dumbells', 'Barbell', 'Machine','Body Weight','Other'],
+          hint: 'Equipment',
         ),
+        Padding(padding: EdgeInsets.only(left: 10),),
         DetailsItem(
-          rList: ['pen','is'],
-          hint: 'hint',
-          label: 'label',
+          rList: ['Overhand','Underhand','Sumo','Other'],
+          hint: 'Grip',
+        ),
+        Padding(padding: EdgeInsets.only(left: 10),),
+        DetailsItem(
+          rList: ['Slight Incline','Slight Decline','Large Incline','Large Decline'],
+          hint: 'Incline?',
         ),
       ],
     );
@@ -63,10 +76,9 @@ class _DetailsItemState extends State<DetailsItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 100,
+      width: 125,
       child: DropdownButtonFormField(
-        decoration: InputDecoration(labelText: widget.label),
-        hint: Text(widget.hint),
+        decoration: InputDecoration(labelText: widget.label,hintText: widget.hint,),
         items: widget.rList
             .map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem(
