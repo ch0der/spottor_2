@@ -55,6 +55,7 @@ flutter:
     - assets/imgs/icon.png
     - assets/imgs/icon.white.png
     - assets/imgs/icongray.png
+    - assets/imgs/small_icon_white.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
