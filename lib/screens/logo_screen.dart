@@ -41,6 +41,11 @@ class _LogoScreenState extends State<LogoScreen> {
         title = 'hello1';
       });
     }
+    if (_currentIndex == 3) {
+      setState(() {
+        title = 'Editor';
+      });
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
