@@ -11,7 +11,9 @@ class _BuildEditorState extends State<BuildEditor> {
   initState() {
     super.initState();
   }
-   int weightDisplay = 0;
+
+  int weightDisplay = 0;
+  String weightUnit = 'lbs';
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +74,10 @@ class _BuildEditorState extends State<BuildEditor> {
     return Column(
       children: <Widget>[
         displayWeightNum(),
-        addWeight(),
+        Transform.scale(
+          scale: .8,
+          child: addWeight(),
+        ),
       ],
     );
   }
@@ -82,9 +87,33 @@ class _BuildEditorState extends State<BuildEditor> {
       height: 50,
       width: 100,
       child: Center(
-        child: Text(
-          weightDisplay.toString(),
-          style: TextStyle(fontSize: 40),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(left: 10),
+            ),
+            Text(
+              weightDisplay.toString(),
+              style: TextStyle(fontSize: 40),
+            ),
+            Column(
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(top: 25),
+                ),
+                SizedBox(
+                  height: 15,
+                  child: Text(
+                    weightUnit,
+                    style: TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
@@ -105,7 +134,7 @@ class _BuildEditorState extends State<BuildEditor> {
               ),
               onPressed: () {
                 setState(() {
-                  weightDisplay = weightDisplay -5;
+                  weightDisplay = weightDisplay - 5;
                 });
               },
               child: Center(
@@ -129,7 +158,7 @@ class _BuildEditorState extends State<BuildEditor> {
               ),
               onPressed: () {
                 setState(() {
-                  weightDisplay = weightDisplay +5;
+                  weightDisplay = weightDisplay + 5;
                 });
               },
               child: Center(
