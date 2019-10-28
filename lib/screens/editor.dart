@@ -12,9 +12,14 @@ class _BuildEditorState extends State<BuildEditor> {
     super.initState();
   }
 
+  // variables for 'details' section
   int weightDisplay = 0;
+  double bottomPaddingDetail = 2;
   String weightUnit = 'lbs';
   String equipmentQ;
+  String gripQ;
+  String grip2Q;
+  String inclineQ;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +31,14 @@ class _BuildEditorState extends State<BuildEditor> {
         weightEdit(),
         Padding(
           padding: EdgeInsets.only(top: 50),
+        ),
+        Align(
+          alignment: Alignment.center,
+          child: Text(
+            'Additional Details\n(Leave blank for default)',
+            style: TextStyle(),
+            textAlign: TextAlign.center,
+          ),
         ),
         otherDetails(),
         Container(
@@ -48,26 +61,15 @@ class _BuildEditorState extends State<BuildEditor> {
         Padding(
           padding: EdgeInsets.only(left: 10),
         ),
-        equipment(),
+        equipmentDetail(),
         Padding(
           padding: EdgeInsets.only(left: 10),
         ),
-        DetailsItem(
-          rList: ['Overhand', 'Underhand', 'Sumo', 'Other'],
-          hint: 'Grip',
-        ),
+        gripDetail(),
         Padding(
           padding: EdgeInsets.only(left: 10),
         ),
-        DetailsItem(
-          rList: [
-            'Slight Incline',
-            'Slight Decline',
-            'Large Incline',
-            'Large Decline'
-          ],
-          hint: 'Incline?',
-        ),
+        inclineDetail(),
       ],
     );
   }
@@ -179,34 +181,125 @@ class _BuildEditorState extends State<BuildEditor> {
     );
   }
 
-  equipment() {
+  equipmentDetail() {
+    return Column(
+      children: <Widget>[
+        Container(
+          width: 125,
+          child: DropdownButtonFormField(
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.only(bottom: bottomPaddingDetail),
+                labelText: 'Equipment',
+              ),
+              items: <String>[
+                'Dumbells',
+                'Barbell',
+                'Machine',
+                'Body Weight',
+                'Other'
+              ].map<DropdownMenuItem<String>>(
+                (String value) {
+                  return DropdownMenuItem(
+                    child: Text(value),
+                    value: value,
+                  );
+                },
+              ).toList(),
+              onChanged: (value) {
+                setState(() {
+                  equipmentQ = value;
+                });
+              },
+              value: equipmentQ),
+        ),
+      ],
+    );
+  }
+
+  gripDetail() {
     return Container(
       width: 125,
       child: DropdownButtonFormField(
-        decoration: InputDecoration(
-          hintText: 'equipment',
-        ),
-        items: <String>[
-          'Dumbells',
-          'Barbell',
-          'Machine',
-          'Body Weight',
-          'Other'
-        ].map<DropdownMenuItem<String>>(
-          (String value) {
-            return DropdownMenuItem(
-              child: Text(value),
-              value: value,
-            );
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.only(bottom: bottomPaddingDetail),
+            labelText: 'Grip',
+          ),
+          items: <String>[
+            'Narrow',
+            'Wide',
+          ].map<DropdownMenuItem<String>>(
+            (String value) {
+              return DropdownMenuItem(
+                child: Text(value),
+                value: value,
+              );
+            },
+          ).toList(),
+          onChanged: (value) {
+            setState(() {
+              gripQ = value;
+            });
           },
-        ).toList(),
-        onChanged: (value) {
-          setState(() {
-            equipmentQ = value;
-          });
-        },
-        value: equipmentQ
-      ),
+          value: gripQ),
+    );
+  }
+  grip2Detail() {
+    return Container(
+      width: 125,
+      child: DropdownButtonFormField(
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.only(bottom: bottomPaddingDetail),
+            labelText: 'Grip',
+          ),
+          items: <String>[
+            'Overhand',
+            'Underhand',
+            'Sumo',
+            'Other',
+          ].map<DropdownMenuItem<String>>(
+                (String value) {
+              return DropdownMenuItem(
+                child: Text(value),
+                value: value,
+              );
+            },
+          ).toList(),
+          onChanged: (value) {
+            setState(() {
+              grip2Q = value;
+            });
+          },
+          value: grip2Q),
+    );
+  }
+
+  inclineDetail() {
+    return Container(
+      width: 125,
+      child: DropdownButtonFormField(
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.only(bottom: bottomPaddingDetail),
+            labelText: 'Incline',
+          ),
+          items: <String>[
+            'Slight Incline',
+            'Slight Decline',
+            'Large Incline',
+            'Large Decline',
+          ].map<DropdownMenuItem<String>>(
+            (String value) {
+              return DropdownMenuItem(
+                child: Text(value),
+                value: value,
+              );
+            },
+          ).toList(),
+          onChanged: (value) {
+            setState(() {
+              inclineQ = value;
+            });
+          },
+          value: inclineQ),
     );
   }
 }

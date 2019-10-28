@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
 
 class PadDemo extends StatefulWidget {
+
   @override
   _PadDemoState createState() => _PadDemoState();
 }
 
 class _PadDemoState extends State<PadDemo> {
+
+  bool isVisible = false;
+  bool isVisible2 = false;
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +36,55 @@ class _PadDemoState extends State<PadDemo> {
             top: 115,
             child: text2(),
           ),
+          Positioned(
+            left: 150,
+            top: 115,
+            child: iconTest(),
+          ),
         ],
+      ),
+    );
+  }
+
+  iconTest() {
+    return Column(
+      children: <Widget>[
+        GestureDetector(
+          onTap: (){
+            setState(() {
+              isVisible = !isVisible;
+            },);
+            Future.delayed(Duration(milliseconds: 1000),(){
+              setState(() {
+                isVisible = false;
+              });
+            },);
+    },
+          child: Container(
+            height: 20,
+            width: 20,
+            decoration: BoxDecoration(
+              border: Border.all(width: 1, color: Colors.black87),
+              shape: BoxShape.circle,
+              image: DecorationImage(
+                image: AssetImage('assets/imgs/detailIcons/barbell.png'),
+              ),
+            ),
+          ),
+        ),
+        Container(width: 45,child: appearingTextBox(),),
+      ],
+    );
+  }
+
+  appearingTextBox() {
+    return Visibility(
+      visible: isVisible,
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.lightGreen
+        ),
+        child: Text('barbell'),
       ),
     );
   }
@@ -290,7 +345,10 @@ class _PadDemoState extends State<PadDemo> {
         Container(
           child: Text(
             'Description           Set  Reps   Wt',
-            style: TextStyle(fontFamily: 'Handlee', fontSize: 25,decoration: TextDecoration.underline),
+            style: TextStyle(
+                fontFamily: 'Handlee',
+                fontSize: 25,
+                decoration: TextDecoration.underline),
           ),
         )
       ],
