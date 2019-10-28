@@ -14,6 +14,7 @@ class _BuildEditorState extends State<BuildEditor> {
 
   int weightDisplay = 0;
   String weightUnit = 'lbs';
+  String equipmentQ;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +28,16 @@ class _BuildEditorState extends State<BuildEditor> {
           padding: EdgeInsets.only(top: 50),
         ),
         otherDetails(),
+        Container(
+          height: 30,
+          width: 30,
+          child: RaisedButton(
+            color: Colors.orange,
+            onPressed: () {
+              print(equipmentQ);
+            },
+          ),
+        ),
       ],
     );
   }
@@ -37,16 +48,7 @@ class _BuildEditorState extends State<BuildEditor> {
         Padding(
           padding: EdgeInsets.only(left: 10),
         ),
-        DetailsItem(
-          rList: <String>[
-            'Dumbells',
-            'Barbell',
-            'Machine',
-            'Body Weight',
-            'Other'
-          ],
-          hint: 'Equipment',
-        ),
+        equipment(),
         Padding(
           padding: EdgeInsets.only(left: 10),
         ),
@@ -174,6 +176,37 @@ class _BuildEditorState extends State<BuildEditor> {
           ),
         ),
       ],
+    );
+  }
+
+  equipment() {
+    return Container(
+      width: 125,
+      child: DropdownButtonFormField(
+        decoration: InputDecoration(
+          hintText: 'equipment',
+        ),
+        items: <String>[
+          'Dumbells',
+          'Barbell',
+          'Machine',
+          'Body Weight',
+          'Other'
+        ].map<DropdownMenuItem<String>>(
+          (String value) {
+            return DropdownMenuItem(
+              child: Text(value),
+              value: value,
+            );
+          },
+        ).toList(),
+        onChanged: (value) {
+          setState(() {
+            equipmentQ = value;
+          });
+        },
+        value: equipmentQ
+      ),
     );
   }
 }
