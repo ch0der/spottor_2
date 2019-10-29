@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:spottor_2/screens/change_font_screen.dart';
+import 'package:spottor_2/screens/editSelection.dart';
 import 'package:spottor_2/screens/editor.dart';
 import 'package:spottor_2/screens/pad.dart';
 import 'package:spottor_2/widgets/preview_pad.dart';
@@ -20,7 +21,7 @@ class _LogoScreenState extends State<LogoScreen> {
   final List<Widget> _children = [
     PreviewPad(),
     PadTest(),
-    FontTest(),
+    EditSelector(),
     BuildEditor(),
   ];
   @override

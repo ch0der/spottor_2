@@ -64,7 +64,6 @@ class _PadDemoState extends State<PadDemo> {
             height: 20,
             width: 20,
             decoration: BoxDecoration(
-              border: Border.all(width: 1, color: Colors.black87),
               shape: BoxShape.circle,
               image: DecorationImage(
                 image: AssetImage('assets/imgs/detailIcons/barbell.png'),
