@@ -58,6 +58,12 @@ flutter:
     - assets/imgs/icongray.png
     - assets/imgs/small_icon_white.png
     - assets/imgs/detailIcons/barbell.png
+    - assets/imgs/stockphotos/food1.jpg
+    - assets/imgs/stockphotos/food2.jpg
+    - assets/imgs/stockphotos/food3.jpg
+    - assets/imgs/stockphotos/workout1.jpg
+    - assets/imgs/stockphotos/workout2.jpg
+    - assets/imgs/stockphotos/workout3.jpg
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
