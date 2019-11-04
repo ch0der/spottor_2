@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "902014372680",
+    "firebase_url": "https://spottor-1f0bb.firebaseio.com",
+    "project_id": "spottor-1f0bb",
+    "storage_bucket": "spottor-1f0bb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:902014372680:android:497e1695b197ef5385817d",
+        "android_client_info": {
+          "package_name": "choder.spottor_2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "902014372680-po5771se3cscrms9g87iuisiq6bi6hk7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJ4iNKZdNKpiqyiN5yJsTNS47-qU5Cw3Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "902014372680-po5771se3cscrms9g87iuisiq6bi6hk7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

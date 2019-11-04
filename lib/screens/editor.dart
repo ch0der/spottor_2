@@ -20,15 +20,24 @@ class _BuildEditorState extends State<BuildEditor> {
   String gripQ;
   String grip2Q;
   String inclineQ;
+  String bodyPartQ;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         Padding(
-          padding: EdgeInsets.only(top: 100),
+          padding: EdgeInsets.only(top: 50),
         ),
-        weightEdit(),
+        bodyPartDetail(),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            weightEdit(),
+            weightEdit(),
+            weightEdit(),
+          ],
+        ),
         Padding(
           padding: EdgeInsets.only(top: 50),
         ),
@@ -41,14 +50,34 @@ class _BuildEditorState extends State<BuildEditor> {
           ),
         ),
         otherDetails(),
+        otherDetails(),
+        Padding(
+          padding: EdgeInsets.only(top: 15),
+        ),
         Container(
-          height: 30,
-          width: 30,
-          child: RaisedButton(
-            color: Colors.orange,
-            onPressed: () {
-              print(equipmentQ);
-            },
+          height: 150,
+          width: 380,
+          child: Row(
+            children: <Widget>[
+              Column(
+                children: <Widget>[
+                  Text('Description:'),
+                  Row(
+                    children: <Widget>[
+                      Text('Bench Press'),
+                    ],
+                  ),
+                ],
+              ),
+              Padding(padding: EdgeInsets.only(left: 30),),
+              Column(
+                children: <Widget>[
+                  Text('Equipment:'),
+                  Text('fill'),
+                ],
+              ),
+              Column(),
+            ],
           ),
         ),
       ],
@@ -79,7 +108,7 @@ class _BuildEditorState extends State<BuildEditor> {
       children: <Widget>[
         displayWeightNum(),
         Transform.scale(
-          scale: .8,
+          scale: .7,
           child: addWeight(),
         ),
       ],
@@ -243,6 +272,7 @@ class _BuildEditorState extends State<BuildEditor> {
           value: gripQ),
     );
   }
+
   grip2Detail() {
     return Container(
       width: 125,
@@ -257,7 +287,7 @@ class _BuildEditorState extends State<BuildEditor> {
             'Sumo',
             'Other',
           ].map<DropdownMenuItem<String>>(
-                (String value) {
+            (String value) {
               return DropdownMenuItem(
                 child: Text(value),
                 value: value,
@@ -300,6 +330,45 @@ class _BuildEditorState extends State<BuildEditor> {
             });
           },
           value: inclineQ),
+    );
+  }
+
+  bodyPartDetail() {
+    return Container(
+      width: 150,
+      child: DropdownButtonFormField(
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.only(bottom: bottomPaddingDetail),
+            labelText: 'Body Part',
+          ),
+          items: <String>[
+            'Abdominal/Core',
+            'Back',
+            'Biceps',
+            'Calves',
+            'Chest',
+            'Forearms',
+            'Glutes',
+            'Hamstrings',
+            'Lats',
+            'Quads',
+            'Shoulders/Delts',
+            'Traps',
+            'Triceps',
+          ].map<DropdownMenuItem<String>>(
+            (String value) {
+              return DropdownMenuItem(
+                child: Text(value),
+                value: value,
+              );
+            },
+          ).toList(),
+          onChanged: (value) {
+            setState(() {
+              bodyPartQ = value;
+            });
+          },
+          value: bodyPartQ),
     );
   }
 }

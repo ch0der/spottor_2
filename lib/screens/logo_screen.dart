@@ -4,6 +4,7 @@ import 'package:spottor_2/screens/change_font_screen.dart';
 import 'package:spottor_2/screens/editSelection.dart';
 import 'package:spottor_2/screens/editor.dart';
 import 'package:spottor_2/screens/pad.dart';
+import 'package:spottor_2/screens/testing_3d_thing.dart';
 import 'package:spottor_2/widgets/preview_pad.dart';
 import 'package:spottor_2/resources/blocs/font_bloc.dart';
 
@@ -19,7 +20,7 @@ class _LogoScreenState extends State<LogoScreen> {
   String font;
   int _currentIndex = 0;
   final List<Widget> _children = [
-    PreviewPad(),
+    S02E02(),
     PadTest(),
     EditSelector(),
     BuildEditor(),

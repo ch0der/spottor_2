@@ -1,103 +1,126 @@
 import 'package:flutter/material.dart';
-import 'package:spottor_2/widgets/notebook_hinges.dart';
+import 'package:spottor_2/screens/pad.dart';
 
-class PadTest extends StatefulWidget {
-  @override
-  _PadTestState createState() => _PadTestState();
-}
+class S02E02 extends StatelessWidget {
+  final imgList = [
+   padpenis(),
+    Container(height: 200,width: 100,color: Colors.red,),
+    padpenis(),
+    padpenis(),
+    padpenis(),
 
-class _PadTestState extends State<PadTest> {
+  ];
+  ScrollController controller;
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Center(
-      child: buildBody(),
-    ));
-  }
+    return Transform.rotate(
+      angle: 20,
 
-  buildBody() {
-    return Column(
-      children: <Widget>[
-        Container(
-          height: 100,
-        ),
-        GestureDetector(
-          onTap: () {
-            Navigator.pushNamed(context, '/demo');
+      child: ListWheelScrollView(
+
+        squeeze:1,
+        perspective: .01,
+        offAxisFraction: .25,
+        controller: controller,
+        itemExtent: 250.0,
+        physics: BouncingScrollPhysics(),
+        children:
+        imgList.map(
+              (i) {
+            return Builder(
+              builder: (BuildContext context) {
+                return Container(
+                  child: i,
+                );
+              },
+            );
           },
-          child: Stack(
-            overflow: Overflow.visible,
-            children: <Widget>[
-              Container(
-                height: 215,
-                width: 150,
-                decoration: BoxDecoration(
-                  color: Colors.green[200],
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(.6),
-                      offset: Offset.fromDirection(10.0, -5.0),
-                      spreadRadius: 0,
-                      blurRadius: 5.0,
-                    ),
-                  ],
-                ),
-              ),
-              Positioned(top: -240, left: -20, child: hinges()),
-              Positioned(
-                bottom: 0,
-                right: 10,
-                child: Visibility(
-                  visible: false,
-                  child: Container(
-                    height: 40,
-                    width: 40,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/imgs/icon.white.png'),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                top: 20,
-                left: 33,
-                child: Container(
-                  height: 40,
-                  width: 90,
-                  decoration: BoxDecoration(
-                    color: Colors.white70,
-                  ),
-                  child: Center(
-                    child: Column(
-                      children: <Widget>[
-                        SizedBox(
-                          height: 20,
-                          child: Text(
-                            'MONDAY',
-                            style: TextStyle(
-                              fontFamily: 'Marker',
-                              fontSize: 18,
-                            ),
-                          ),
-                        ),
-                        Text(
-                          'Back & Biceps',
-                          style: TextStyle(fontSize: 11, fontFamily: 'Marker'),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
+        ).toList(),
+      ),
     );
   }
 
+}
+class padpenis extends StatefulWidget {
+  @override
+  _padpenisState createState() => _padpenisState();
+}
+
+class _padpenisState extends State<padpenis> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Stack(
+        overflow: Overflow.visible,
+        children: <Widget>[
+          Container(
+            height: 215,
+            width: 150,
+            decoration: BoxDecoration(
+              color: Colors.green[200],
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(.6),
+                  offset: Offset.fromDirection(10.0, -5.0),
+                  spreadRadius: 0,
+                  blurRadius: 5.0,
+                ),
+              ],
+            ),
+          ),
+          Positioned(top: -240, left: -20, child: hinges()),
+          Positioned(
+            bottom: 0,
+            right: 10,
+            child: Visibility(
+              visible: false,
+              child: Container(
+                height: 40,
+                width: 40,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/imgs/icon.white.png'),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 20,
+            left: 33,
+            child: Container(
+              height: 40,
+              width: 90,
+              decoration: BoxDecoration(
+                color: Colors.white70,
+              ),
+              child: Center(
+                  child: Column(
+                    children: <Widget>[
+                      SizedBox(
+                        height: 20,
+                        child: Text(
+                          'MONDAY',
+                          style: TextStyle(
+                            fontFamily: 'Marker',
+                            fontSize: 18,
+
+                          ),
+                        ),
+                      ),
+                      Text(
+                        'Back & Biceps',
+                        style: TextStyle(fontSize: 11,fontFamily: 'Marker'),
+                      ),
+                    ],
+                  )),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
   hinges() {
     double spacing = 20;
 
@@ -189,6 +212,7 @@ class _PadTestState extends State<PadTest> {
       ),
     );
   }
+
 
   hinge() {
     return Stack(
