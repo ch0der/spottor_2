@@ -1,53 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:spottor_2/screens/pad.dart';
+import 'package:flutter_page_indicator/flutter_page_indicator.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
 
 class S02E02 extends StatelessWidget {
-  final imgList = [
-   padpenis(),
-    Container(height: 200,width: 100,color: Colors.red,),
-    padpenis(),
-    padpenis(),
-    padpenis(),
 
+  final List imgList = [
+    'assets/imgs/stockphotos/workout1.jpg',
+    'assets/imgs/stockphotos/workout2.jpg',
+    'assets/imgs/stockphotos/workout3.jpg'
   ];
-  ScrollController controller;
+  final List bookList = [
+   padpenis(day: 'monday',),
+    padpenis(day: 'teus',),
+  ];
 
   @override
   Widget build(BuildContext context) {
-    return Transform.rotate(
-      angle: 20,
-
-      child: ListWheelScrollView(
-
-        squeeze:1,
-        perspective: .01,
-        offAxisFraction: .25,
-        controller: controller,
-        itemExtent: 250.0,
-        physics: BouncingScrollPhysics(),
-        children:
-        imgList.map(
-              (i) {
-            return Builder(
-              builder: (BuildContext context) {
-                return Container(
-                  child: i,
-                );
-              },
-            );
-          },
-        ).toList(),
-      ),
+    return Swiper(
+      itemBuilder: (BuildContext context, int index) {
+        final item = bookList[index];
+        return(Container(child: item,));
+      },
+      itemCount: bookList.length,
+      itemWidth: 150,
+      itemHeight: 150,
+      layout: SwiperLayout.STACK,
     );
   }
-
-}
-class padpenis extends StatefulWidget {
-  @override
-  _padpenisState createState() => _padpenisState();
 }
 
-class _padpenisState extends State<padpenis> {
+class padpenis extends StatelessWidget{
+  padpenis({Key key,this.day}) :super(key: key);
+
+  final String day;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -69,23 +56,6 @@ class _padpenisState extends State<padpenis> {
               ],
             ),
           ),
-          Positioned(top: -240, left: -20, child: hinges()),
-          Positioned(
-            bottom: 0,
-            right: 10,
-            child: Visibility(
-              visible: false,
-              child: Container(
-                height: 40,
-                width: 40,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/imgs/icon.white.png'),
-                  ),
-                ),
-              ),
-            ),
-          ),
           Positioned(
             top: 20,
             left: 33,
@@ -97,30 +67,30 @@ class _padpenisState extends State<padpenis> {
               ),
               child: Center(
                   child: Column(
-                    children: <Widget>[
-                      SizedBox(
-                        height: 20,
-                        child: Text(
-                          'MONDAY',
-                          style: TextStyle(
-                            fontFamily: 'Marker',
-                            fontSize: 18,
-
-                          ),
-                        ),
+                children: <Widget>[
+                  SizedBox(
+                    height: 20,
+                    child: Text(
+                      day,
+                      style: TextStyle(
+                        fontFamily: 'Marker',
+                        fontSize: 18,
                       ),
-                      Text(
-                        'Back & Biceps',
-                        style: TextStyle(fontSize: 11,fontFamily: 'Marker'),
-                      ),
-                    ],
-                  )),
+                    ),
+                  ),
+                  Text(
+                    'Back & Biceps',
+                    style: TextStyle(fontSize: 11, fontFamily: 'Marker'),
+                  ),
+                ],
+              )),
             ),
           ),
         ],
       ),
     );
   }
+
   hinges() {
     double spacing = 20;
 
@@ -213,93 +183,13 @@ class _padpenisState extends State<padpenis> {
     );
   }
 
-
   hinge() {
-    return Stack(
-      overflow: Overflow.visible,
-      children: <Widget>[
-        Positioned(
-          bottom: -2.5,
-          left: 38,
-          child: Container(
-            height: 17,
-            width: 7,
-            decoration: BoxDecoration(
-              color: Colors.black87.withOpacity(.3),
-              borderRadius: BorderRadius.all(
-                Radius.circular(4),
-              ),
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.black87.withOpacity(.4),
-                    spreadRadius: 3,
-                    blurRadius: 1)
-              ],
-            ),
-          ),
-        ),
-        Column(
-          children: <Widget>[
-            Container(
-              height: 6,
-              width: 45,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Colors.grey[600],
-                    Colors.grey[300],
-                    Colors.grey,
-                  ],
-                  stops: [
-                    0,
-                    .5,
-                    1,
-                  ],
-                ),
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(5),
-                  bottomRight: Radius.circular(5),
-                ),
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.black87.withOpacity(.3),
-                      offset: Offset(0, 1),
-                      blurRadius: 2)
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 3),
-            ),
-            Container(
-              height: 6,
-              width: 45,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(colors: [
-                  Colors.grey[600],
-                  Colors.grey[300],
-                  Colors.grey,
-                ], stops: [
-                  0,
-                  .5,
-                  1
-                ]),
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(5),
-                  bottomRight: Radius.circular(5),
-                ),
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.black87.withOpacity(.3),
-                      offset: Offset(0, 1),
-                      blurRadius: 2,
-                      spreadRadius: 2)
-                ],
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
+    return (Container);  }
+  testCont(Color color){
+    return(Container(
+      width: 150,
+      height: 150,
+      color: color,
+    ));
   }
 }
