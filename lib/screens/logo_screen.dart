@@ -50,13 +50,26 @@ class _LogoScreenState extends State<LogoScreen> {
     }
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Row(
+          children: <Widget>[
+            Container(
+              width: 150,
+              child: Image(
+                image: AssetImage('assets/imgs/newLogo.png'),
+              ),
+            ),
+            Container(width: 30,),
+            Text(title),
+          ],
+        ),
         backgroundColor: Colors.green[800].withOpacity(.5),
         elevation: 5,
         actions: <Widget>[
           SizedBox(
             width: 50,
-            child: Image(image: AssetImage('assets/imgs/small_icon_white.png'),),
+            child: Image(
+              image: AssetImage('assets/imgs/small_icon_white.png'),
+            ),
           ),
         ],
       ),

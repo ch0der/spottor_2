@@ -33,64 +33,83 @@ class _S02E02State extends State<S02E02> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        searchFilter(),
-        Container(
-          height: 150,
+        Flexible(
+          child: searchFilter(),
         ),
-        swiperText(),
+        Container(
+          height: 15,
+        ),
+        Container(height: 35,child: Text('My Workouts',textAlign: TextAlign.center,style: TextStyle(fontSize: 25),),),
+        Padding(padding: EdgeInsets.only(left: 30),child: swiperText(),),
+        Container(
+          height: 10,
+        ),
+        changeViewText(),
+        Container(height: 10,),
+        Padding(padding: EdgeInsets.only(left: 30),child: swiperText(),),
+        Container(
+          height: 10,
+        ),
+        changeViewText(),
       ],
     );
   }
 
   searchFilter() {
-    return Row(
-      children: <Widget>[
-        Container(
-          width: 100,
-          child: Text(
-            'FILTER BY',
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 15),
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: 50,
+      child: Row(
+        children: <Widget>[
+          Container(
+            width: 90,
+            child: Text(
+              'FILTER BY',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 15),
+            ),
           ),
-        ),
-        Container(
-          width: 125,
-          child: DropdownButtonFormField(
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.only(bottom: 2),
-                labelText: 'Day',
-              ),
-              items: <String>[
-                'Sunday',
-                'Monday',
-                'Tuesday',
-                'Wednesday',
-                'Thursday',
-                'Friday',
-                'Saturday'
-              ].map<DropdownMenuItem<String>>(
-                (String value) {
-                  return DropdownMenuItem(
-                    child: Text(value),
-                    value: value,
-                  );
-                },
-              ).toList(),
-              onChanged: (value) {
-                setState(() {
-                  dayOfWeekQ = value;
-                });
-              },
-              value: dayOfWeekQ),
-        ),
-        Container(
-          width: 20,
-        ),
-        bodyPartDetail(),
-      ],
+          Flexible(
+            child: Container(
+              child: DropdownButtonFormField(
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.only(bottom: 2),
+                    labelText: 'Day',
+                  ),
+                  items: <String>[
+                    'Sunday',
+                    'Monday',
+                    'Tuesday',
+                    'Wednesday',
+                    'Thursday',
+                    'Friday',
+                    'Saturday'
+                  ].map<DropdownMenuItem<String>>(
+                    (String value) {
+                      return DropdownMenuItem(
+                        child: Text(value),
+                        value: value,
+                      );
+                    },
+                  ).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      dayOfWeekQ = value;
+                    });
+                  },
+                  value: dayOfWeekQ),
+            ),
+          ),
+          Container(
+            width: 20,
+          ),
+          Flexible(fit: FlexFit.tight, child: bodyPartDetail()),
+        ],
+      ),
     );
   }
-  swiperText(){
+
+  swiperText() {
     return Swiper(
       itemBuilder: (BuildContext context, int index) {
         final item = bookList[index];
@@ -104,42 +123,53 @@ class _S02E02State extends State<S02E02> {
       layout: SwiperLayout.STACK,
     );
   }
+
   bodyPartDetail() {
-    return Container(
-      width: 150,
-      child: DropdownButtonFormField(
-          decoration: InputDecoration(
-            contentPadding: EdgeInsets.only(bottom: 2),
-            labelText: 'Body Part',
-          ),
-          items: <String>[
-            'Abdominal/Core',
-            'Back',
-            'Biceps',
-            'Calves',
-            'Chest',
-            'Forearms',
-            'Glutes',
-            'Hamstrings',
-            'Lats',
-            'Quads',
-            'Shoulders/Delts',
-            'Traps',
-            'Triceps',
-          ].map<DropdownMenuItem<String>>(
-                (String value) {
-              return DropdownMenuItem(
-                child: Text(value),
-                value: value,
-              );
-            },
-          ).toList(),
-          onChanged: (value) {
-            setState(() {
-              bodyPartQ = value;
-            });
+    return DropdownButtonFormField(
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.only(bottom: 2),
+          labelText: 'Body Part',
+        ),
+        items: <String>[
+          'Abdominal/Core',
+          'Back',
+          'Biceps',
+          'Calves',
+          'Chest',
+          'Forearms',
+          'Glutes',
+          'Hamstrings',
+          'Lats',
+          'Quads',
+          'Shoulders/Delts',
+          'Traps',
+          'Triceps',
+        ].map<DropdownMenuItem<String>>(
+          (String value) {
+            return DropdownMenuItem(
+              child: Text(
+                value,
+                style: TextStyle(),
+              ),
+              value: value,
+            );
           },
-          value: bodyPartQ),
+        ).toList(),
+        onChanged: (value) {
+          setState(() {
+            bodyPartQ = value;
+          });
+        },
+        value: bodyPartQ);
+  }
+
+  changeViewText() {
+    return Container(
+      child: Text(
+        'View All',
+        style: TextStyle(fontSize: 15),
+        textAlign: TextAlign.center,
+      ),
     );
   }
 }

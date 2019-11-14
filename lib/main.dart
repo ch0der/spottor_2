@@ -4,9 +4,11 @@ import 'library.dart';
 import 'package:flutter/rendering.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
+import 'package:flutter/services.dart';
 
-void main() {
+Future main() async{
   debugPaintSizeEnabled = false;
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   runApp(
     DynamicTheme(
