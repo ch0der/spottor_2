@@ -23,7 +23,7 @@ Future main() async{
           routes: {
             // When we navigate to the "/" route, build the FirstScreen Widget
             '/': (context) => MyApp(),
-            '/second': (context) => LogoScreen(),
+            '/second': (context) => SpottorHomeScreen(),
             '/splash': (context) => SplashScreen2(),
             '/demo': (context) => PadDemo(),
             // When we navigate to the "/second" route, build the SecondScreen Widget
