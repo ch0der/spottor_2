@@ -3,10 +3,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:spottor_2/screens/change_font_screen.dart';
 import 'package:spottor_2/screens/editSelection.dart';
 import 'package:spottor_2/screens/editor.dart';
+import 'package:spottor_2/screens/myWorkoutSelection.dart';
 import 'package:spottor_2/screens/pad.dart';
 import 'package:spottor_2/screens/testing_3d_thing.dart';
 import 'package:spottor_2/widgets/preview_pad.dart';
 import 'package:spottor_2/resources/blocs/font_bloc.dart';
+import 'package:spottor_2/widgets/primaryPad.dart';
 
 class SpottorHomeScreen extends StatefulWidget {
   @override
@@ -30,7 +32,7 @@ class _SpottorHomeScreenState extends State<SpottorHomeScreen>
     ),
   ];
   final List<Widget> _children = [
-    S02E02(),
+    myWorkoutPage(),
     PadTest(),
     EditSelector(),
     BuildEditor(),

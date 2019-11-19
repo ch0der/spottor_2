@@ -65,23 +65,25 @@ class _EditSelectorState extends State<EditSelector> {
               Expanded(
                 child: Stack(
                   children: <Widget>[
-                    CarouselSlider(
-                      autoPlay: true,
-                      viewportFraction: 1.0,
-                      height: 1000,
-                      autoPlayInterval: Duration(milliseconds: 5000),
-                      aspectRatio: MediaQuery.of(context).size.aspectRatio,
-                      items: imgList.map(
-                        (i) {
-                          return Builder(
-                            builder: (BuildContext context) {
-                              return Container(
-                                child: i,
-                              );
-                            },
-                          );
-                        },
-                      ).toList(),
+                    IgnorePointer(
+                      child: CarouselSlider(
+                        autoPlay: true,
+                        viewportFraction: 1.0,
+                        height: 1000,
+                        autoPlayInterval: Duration(milliseconds: 5000),
+                        aspectRatio: MediaQuery.of(context).size.aspectRatio,
+                        items: imgList.map(
+                          (i) {
+                            return Builder(
+                              builder: (BuildContext context) {
+                                return Container(
+                                  child: i,
+                                );
+                              },
+                            );
+                          },
+                        ).toList(),
+                      ),
                     ),
                     selectionText('Workouts'),
                   ],
@@ -90,28 +92,30 @@ class _EditSelectorState extends State<EditSelector> {
               Expanded(
                 child: Stack(
                   children: <Widget>[
-                    Opacity(
-                      opacity: .6,
-                      child: CarouselSlider(
-                        autoPlay: true,
-                        viewportFraction: 1.0,
-                        initialPage: 3,
-                        autoPlayInterval: Duration(seconds: playDuration),
-                        height: 1000,
-                        items: imgList2.map(
-                          (i) {
-                            return Builder(
-                              builder: (BuildContext context) {
-                                return Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                  ),
-                                  child: i,
-                                );
-                              },
-                            );
-                          },
-                        ).toList(),
+                    IgnorePointer(
+                      child: Opacity(
+                        opacity: .6,
+                        child: CarouselSlider(
+                          autoPlay: true,
+                          viewportFraction: 1.0,
+                          initialPage: 3,
+                          autoPlayInterval: Duration(seconds: playDuration),
+                          height: 1000,
+                          items: imgList2.map(
+                            (i) {
+                              return Builder(
+                                builder: (BuildContext context) {
+                                  return Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                    ),
+                                    child: i,
+                                  );
+                                },
+                              );
+                            },
+                          ).toList(),
+                        ),
                       ),
                     ),
                     selectionText('Meal Plan'),
