@@ -21,15 +21,26 @@ class _BuildEditorState extends State<BuildEditor> {
   String grip2Q;
   String inclineQ;
   String bodyPartQ;
+  String workoutName;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         Padding(
-          padding: EdgeInsets.only(top: 50),
+          padding: EdgeInsets.only(top: 5),
         ),
-        bodyPartDetail(),
+        FittedBox(
+          fit: BoxFit.fitWidth,
+          child: Row(
+            children: <Widget>[
+              Container(width: 10,),
+              bodyPartDetail(),
+              Container(width: 10,),
+              specificWorkout(),
+            ],
+          ),
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -69,7 +80,9 @@ class _BuildEditorState extends State<BuildEditor> {
                   ),
                 ],
               ),
-              Padding(padding: EdgeInsets.only(left: 30),),
+              Padding(
+                padding: EdgeInsets.only(left: 30),
+              ),
               Column(
                 children: <Widget>[
                   Text('Equipment:'),
@@ -84,22 +97,72 @@ class _BuildEditorState extends State<BuildEditor> {
     );
   }
 
+  specificWorkout() {
+    return Container(
+      width: MediaQuery.of(context).size.width * .55,
+      child: DropdownButtonFormField(
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.only(bottom: bottomPaddingDetail),
+            labelText: 'Excercise',
+          ),
+          items: <String>[
+            'Abdominal/Core',
+            'Back',
+            'Biceps',
+            'Calves',
+            'Chest',
+            'Forearms',
+            'Glutes',
+            'Hamstrings',
+            'Lats',
+            'Quads',
+            'Shoulders/Delts',
+            'Traps',
+            'Triceps',
+          ].map<DropdownMenuItem<String>>(
+            (String value) {
+              return DropdownMenuItem(
+                child: Text(value),
+                value: value,
+              );
+            },
+          ).toList(),
+          onChanged: (value) {
+            setState(() {
+              workoutName = value;
+            });
+          },
+          value: workoutName),
+    );
+  }
+  checkBoxItems(){
+    return Container(
+      child: Row(
+        children: <Widget>[
+        ],
+      ),
+    );
+  }
+
   otherDetails() {
-    return Row(
-      children: <Widget>[
-        Padding(
-          padding: EdgeInsets.only(left: 10),
-        ),
-        equipmentDetail(),
-        Padding(
-          padding: EdgeInsets.only(left: 10),
-        ),
-        gripDetail(),
-        Padding(
-          padding: EdgeInsets.only(left: 10),
-        ),
-        inclineDetail(),
-      ],
+    return FittedBox(
+      fit: BoxFit.fitWidth,
+      child: Row(
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(left: 10),
+          ),
+          equipmentDetail(),
+          Padding(
+            padding: EdgeInsets.only(left: 10),
+          ),
+          gripDetail(),
+          Padding(
+            padding: EdgeInsets.only(left: 10),
+          ),
+          inclineDetail(),
+        ],
+      ),
     );
   }
 
@@ -420,3 +483,23 @@ class _DetailsItemState extends State<DetailsItem> {
     );
   }
 }
+class _CheckBoxItem extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Row(
+        children: <Widget>[
+          Checkbox(value: null, onChanged: null),
+          Container(
+            width: 150,
+            child: TextField(
+
+            ),
+          ),
+
+        ],
+      ),
+    );
+  }
+}
+
