@@ -56,6 +56,7 @@ class _SpottorHomeScreenState extends State<SpottorHomeScreen>
     return Scaffold(
       drawer: homeDrawer(),
       appBar: AppBar(
+        backgroundColor: Color.fromRGBO(235, 149, 103, 1),
         title: TabBar(
           tabs: appTabs,
           controller: _tabController,

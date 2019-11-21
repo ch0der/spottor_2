@@ -15,9 +15,6 @@ class WorkoutPad extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Container(
-          height: 100,
-        ),
         GestureDetector(
           onTap: () {
             Navigator.pushNamed(context, '/demo');

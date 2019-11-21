@@ -6,11 +6,15 @@ import 'package:spottor_2/screens/pad.dart';
 import 'package:flutter_page_indicator/flutter_page_indicator.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:spottor_2/widgets/primaryPad.dart';
+import 'package:random_color/random_color.dart';
 
 class myWorkoutPage extends StatefulWidget {
+
+
   @override
   _myWorkoutPageState createState() => _myWorkoutPageState();
 }
+RandomColor _randomColor = RandomColor();
 
 class _myWorkoutPageState extends State<myWorkoutPage> {
   final List imgList = [
@@ -19,31 +23,32 @@ class _myWorkoutPageState extends State<myWorkoutPage> {
     'assets/imgs/stockphotos/workout3.jpg'
   ];
 
+
   final List bookList = [
     WorkoutPad(
       day: 'monday',
       description: 'Back & Biceps',
-      color: Colors.green[200],
+      color: _randomColor.randomColor(colorSaturation: ColorSaturation.mediumSaturation,colorBrightness: ColorBrightness.light)
     ),
     WorkoutPad(
       day: 'monday',
       description: 'Back & Biceps',
-      color: Colors.green[200],
+      color: _randomColor.randomColor(colorSaturation: ColorSaturation.mediumSaturation,colorBrightness: ColorBrightness.light)
     ),
     WorkoutPad(
       day: 'monday',
       description: 'Back & Biceps',
-      color: Colors.green[200],
+      color: _randomColor.randomColor(colorSaturation: ColorSaturation.mediumSaturation,colorBrightness: ColorBrightness.light)
     ),
     WorkoutPad(
       day: 'monday',
       description: 'Back & Biceps',
-      color: Colors.green[200],
+      color: _randomColor.randomColor(colorSaturation: ColorSaturation.mediumSaturation,colorBrightness: ColorBrightness.light)
     ),
     WorkoutPad(
       day: 'mday',
       description: 'Back & Biceps',
-      color: Colors.green[200],
+      color: _randomColor.randomColor(colorSaturation: ColorSaturation.mediumSaturation,colorBrightness: ColorBrightness.light)
     ),
   ];
   String dayOfWeekQ;
@@ -56,11 +61,11 @@ class _myWorkoutPageState extends State<myWorkoutPage> {
         Flexible(
           child: searchFilter(),
         ),
-        Container(
-          height: 15,
-        ),
-        Container(height: 35,child: Text('My Workouts',textAlign: TextAlign.center,style: TextStyle(fontSize: 25),),),
-        Padding(padding: EdgeInsets.only(left: 30),child: swiperText(),),
+        Container(height: 35,width: MediaQuery.of(context).size.width,child: Padding(
+          padding: EdgeInsets.only(left: 20),
+          child: Text('Workouts',textAlign: TextAlign.left,style: TextStyle(fontSize: 30,fontFamily: 'Coiny'),),
+        ),),
+        Padding(padding: EdgeInsets.only(left: 20,top: 10),child: swiperText(),),
         Container(
           height: 10,
         ),
@@ -69,7 +74,7 @@ class _myWorkoutPageState extends State<myWorkoutPage> {
   }
   swiperText(){
     return Container(
-      height: 400,
+      height: 250,
       child: ListView.separated(
         separatorBuilder: (context,index) => Container(width: 20,),
         itemCount: bookList.length,
