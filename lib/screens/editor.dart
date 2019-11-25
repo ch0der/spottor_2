@@ -22,6 +22,8 @@ class _BuildEditorState extends State<BuildEditor> {
   String inclineQ;
   String bodyPartQ;
   String workoutName;
+  RangeValues values = RangeValues(0,500);
+  RangeLabels labels = RangeLabels('0', '500');
 
   @override
   Widget build(BuildContext context) {
@@ -34,20 +36,20 @@ class _BuildEditorState extends State<BuildEditor> {
           fit: BoxFit.fitWidth,
           child: Row(
             children: <Widget>[
-              Container(width: 10,),
+              Container(
+                width: 10,
+              ),
               bodyPartDetail(),
-              Container(width: 10,),
+              Container(
+                width: 10,
+              ),
               specificWorkout(),
             ],
           ),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            weightEdit(),
-            weightEdit(),
-            weightEdit(),
-          ],
+          children: <Widget>[],
         ),
         Padding(
           padding: EdgeInsets.only(top: 50),
@@ -61,39 +63,58 @@ class _BuildEditorState extends State<BuildEditor> {
           ),
         ),
         otherDetails(),
-        otherDetails(),
         Padding(
           padding: EdgeInsets.only(top: 15),
         ),
-        Container(
-          height: 150,
-          width: 380,
-          child: Row(
-            children: <Widget>[
-              Column(
-                children: <Widget>[
-                  Text('Description:'),
-                  Row(
-                    children: <Widget>[
-                      Text('Bench Press'),
-                    ],
-                  ),
-                ],
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 30),
-              ),
-              Column(
-                children: <Widget>[
-                  Text('Equipment:'),
-                  Text('fill'),
-                ],
-              ),
-              Column(),
-            ],
+        addComment(),
+        addWeight2(),
+      ],
+    );
+  }
+
+  addComment() {
+    return Container(
+      height: 50,
+      width: MediaQuery.of(context).size.width * .9,
+      child: TextField(
+        decoration: InputDecoration(
+          hintText: 'Additional Comments',
+          hintStyle: TextStyle(
+            color: Colors.grey[400],
           ),
         ),
-      ],
+        maxLines: 3,
+        textAlign: TextAlign.center,
+        onChanged: null,
+      ),
+    );
+  }
+
+  addWeight2() {
+    return Container(
+      height: 150,
+      child: Row(
+        children: <Widget>[
+          Container(
+            width: MediaQuery.of(context).size.width*.8,
+            child: RangeSlider(
+              labels: labels,
+              min: 0,
+              max: 500,
+              values: values,
+              divisions: 500,
+              onChanged: (value) {
+                setState(
+                  () {
+                    values = value;
+                    labels = RangeLabels(value.start.toString(),value.end.toString(),);
+                  },
+                );
+              },
+            ),
+          )
+        ],
+      ),
     );
   }
 
@@ -135,11 +156,11 @@ class _BuildEditorState extends State<BuildEditor> {
           value: workoutName),
     );
   }
-  checkBoxItems(){
+
+  checkBoxItems() {
     return Container(
       child: Row(
-        children: <Widget>[
-        ],
+        children: <Widget>[],
       ),
     );
   }
@@ -483,6 +504,7 @@ class _DetailsItemState extends State<DetailsItem> {
     );
   }
 }
+
 class _CheckBoxItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -492,14 +514,10 @@ class _CheckBoxItem extends StatelessWidget {
           Checkbox(value: null, onChanged: null),
           Container(
             width: 150,
-            child: TextField(
-
-            ),
+            child: TextField(),
           ),
-
         ],
       ),
     );
   }
 }
-
