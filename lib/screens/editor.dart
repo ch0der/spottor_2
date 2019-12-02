@@ -22,8 +22,13 @@ class _BuildEditorState extends State<BuildEditor> {
   String inclineQ;
   String bodyPartQ;
   String workoutName;
-  RangeValues values = RangeValues(0,500);
+  RangeValues values = RangeValues(0,0);
   RangeLabels labels = RangeLabels('0', '500');
+  RangeValues setValues = RangeValues(0,0);
+  RangeLabels setLabels = RangeLabels('0', '50');
+  RangeValues repValues = RangeValues(0,0);
+  RangeLabels repLabels = RangeLabels('0', '50');
+  bool checkBool = false;
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +73,7 @@ class _BuildEditorState extends State<BuildEditor> {
         ),
         addComment(),
         addWeight2(),
+        setsNreps(),
       ],
     );
   }
@@ -90,29 +96,86 @@ class _BuildEditorState extends State<BuildEditor> {
     );
   }
 
-  addWeight2() {
+  setsNreps() {
     return Container(
-      height: 150,
-      child: Row(
+      height: 100,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Container(
-            width: MediaQuery.of(context).size.width*.8,
+            width: MediaQuery.of(context).size.width*.9,
             child: RangeSlider(
+
+              inactiveColor: Colors.grey[400],
+              activeColor: Colors.lightGreen,
+              labels: setLabels,
+              min: 0,
+              max: 50,
+              values: setValues,
+              divisions: 100,
+              onChanged: (value) {
+                setState(
+                  () {
+                    setValues = value;
+                    setLabels = RangeLabels('${value.start.toInt()}','${value.end.toInt()}');
+                  },
+                );
+              },
+            ),
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width*.9,
+            child: RangeSlider(
+              inactiveColor: Colors.grey[400],
+              activeColor: Colors.lightGreen,
+              labels: repLabels,
+              min: 0,
+              max: 50,
+              values: repValues,
+              divisions: 100,
+              onChanged: (value) {
+                setState(
+                      () {
+                    repValues = RangeValues(value.start,value.end);
+                    repLabels = RangeLabels('${value.start.toInt()}','${value.end.toInt()}');
+                  },
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+  addWeight2() {
+    return Container(
+      height: 100,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Container(
+            width: MediaQuery.of(context).size.width*.9,
+            child: RangeSlider(
+              inactiveColor: Colors.grey,
+              activeColor: Colors.lightGreen,
               labels: labels,
               min: 0,
               max: 500,
               values: values,
-              divisions: 500,
+              divisions: 100,
               onChanged: (value) {
                 setState(
-                  () {
+                      () {
                     values = value;
                     labels = RangeLabels(value.start.toString(),value.end.toString(),);
                   },
                 );
               },
             ),
-          )
+          ),
+          Container(
+            child: Text('Weight Range',style: TextStyle(color: Colors.grey[500],),),
+          ),
         ],
       ),
     );
