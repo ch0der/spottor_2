@@ -74,6 +74,7 @@ flutter:
     - assets/imgs/stockphotos/workout1.jpg
     - assets/imgs/stockphotos/workout2.jpg
     - assets/imgs/stockphotos/workout3.jpg
+    - assets/imgs/liftimg1.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

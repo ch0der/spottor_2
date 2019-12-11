@@ -45,6 +45,8 @@ class _BuildEditorState extends State<BuildEditor> {
   bool sliderWeightBool = true;
   bool secondWeightSliderBool = false;
 
+  final double sliderWidth = .72;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -83,13 +85,27 @@ class _BuildEditorState extends State<BuildEditor> {
           ),
         ),
         otherDetails(),
-        Padding(
-          padding: EdgeInsets.only(top: 15),
+        Padding(padding: EdgeInsets.only(bottom: 5),),
+        Container(
+          padding: EdgeInsets.only(right: 8),
+          height: 15,
+          alignment: Alignment.bottomRight,
+          child: Text('Range'),
         ),
-        addComment(),
         addWeight2(),
         setsNreps(),
+        addComment(),
+        liftImg(),
       ],
+    );
+  }
+
+  liftImg() {
+    return Container(
+      height: 200,
+      child: Image(
+        image: AssetImage('assets/imgs/liftimg1.png'),
+      ),
     );
   }
 
@@ -183,12 +199,18 @@ class _BuildEditorState extends State<BuildEditor> {
     return Container(
       height: 50,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Row(
+            mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
               Container(
-                width: MediaQuery.of(context).size.width * .84,
+                child: Text(
+                  'Weight',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width * sliderWidth,
                 child: RangeSlider(
                   inactiveColor: Colors.grey,
                   activeColor: Colors.lightGreen,
@@ -566,9 +588,16 @@ class _BuildEditorState extends State<BuildEditor> {
 
   rangeWithSwitch() {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
         Container(
-          width: MediaQuery.of(context).size.width * .84,
+          child: Text(
+            'Reps',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
+        Container(
+          width: MediaQuery.of(context).size.width * sliderWidth,
           child: Stack(
             children: <Widget>[
               Visibility(
@@ -620,13 +649,20 @@ class _BuildEditorState extends State<BuildEditor> {
 
   setsWithSwitch() {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
+        Container(
+          child: Text(
+            'Sets',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
         Stack(
           children: <Widget>[
             Visibility(
               visible: sliderSetBool,
               child: Container(
-                width: MediaQuery.of(context).size.width * .84,
+                width: MediaQuery.of(context).size.width * sliderWidth,
                 child: RangeSlider(
                   inactiveColor: Colors.grey[400],
                   activeColor: Colors.lightGreen,
@@ -650,7 +686,7 @@ class _BuildEditorState extends State<BuildEditor> {
             Visibility(
               visible: secondSetSliderBool,
               child: Container(
-                width: MediaQuery.of(context).size.width * .84,
+                width: MediaQuery.of(context).size.width * sliderWidth,
                 child: Slider(
                   label: secondSetLabel,
                   value: singleSetValue,
@@ -822,7 +858,7 @@ class _SliderWithSwitcherState extends State<SliderWithSwitcher> {
       child: Row(
         children: <Widget>[
           Container(
-            width: MediaQuery.of(context).size.width * .84,
+            width: MediaQuery.of(context).size.width * .72,
             child: Stack(
               children: <Widget>[
                 Visibility(
