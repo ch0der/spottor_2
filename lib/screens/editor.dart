@@ -112,12 +112,13 @@ class _BuildEditorState extends State<BuildEditor> {
       ),
     );
   }
-  refresh(value){
+
+  refresh(value) {
     setState(
-          () {
-      weightValues = RangeValues(value.start, value.end);
-        weightLabels = RangeLabels(
-            '${value.start.toInt()}', '${value.end.toInt()}');
+      () {
+        weightValues = RangeValues(value.start, value.end);
+        weightLabels =
+            RangeLabels('${value.start.toInt()}', '${value.end.toInt()}');
       },
     );
   }
@@ -128,8 +129,7 @@ class _BuildEditorState extends State<BuildEditor> {
       child: Switch(
         value: sliderWeightBool,
         onChanged: (newVal) {
-
-          if(singleWeightValue != weightValues.end){
+          if (singleWeightValue != weightValues.end) {
             setState(() {
               singleWeightValue = weightValues.end;
             });
@@ -151,11 +151,15 @@ class _BuildEditorState extends State<BuildEditor> {
       child: Switch(
         value: sliderSetBool,
         onChanged: (newVal) {
+          if (singleSetValue != setValues.end) {
+            setState(() {
+              singleSetValue = setValues.end;
+            });
+          }
           setState(
-            () {
+                () {
               sliderSetBool = newVal;
               secondSetSliderBool = !secondSetSliderBool;
-              singleSetValue = setValues.end;
             },
           );
         },
@@ -169,11 +173,15 @@ class _BuildEditorState extends State<BuildEditor> {
       child: Switch(
         value: sliderRepBool,
         onChanged: (newVal) {
+          if (singleRepValue != repValues.end) {
+            setState(() {
+              singleRepValue = repValues.end;
+            });
+          }
           setState(
             () {
               sliderRepBool = newVal;
               secondRepSliderBool = !secondRepSliderBool;
-              singleRepValue = repValues.end;
             },
           );
         },
@@ -206,7 +214,7 @@ class _BuildEditorState extends State<BuildEditor> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           setsWithSwitch(),
-          rangeWithSwitch(),
+          repsWithSwitch(),
         ],
       ),
     );
@@ -233,19 +241,20 @@ class _BuildEditorState extends State<BuildEditor> {
                 secondLabel: secondWeightLabel,
                 secondValue: singleWeightValue,
                 secondSliderbool: secondWeightSliderBool,
-                notifParent: (value){
+                max: 500,
+                notifParent: (value) {
                   setState(
-                        () {
+                    () {
                       weightValues = RangeValues(value.start, value.end);
                       weightLabels = RangeLabels(
                           '${value.start.toInt()}', '${value.end.toInt()}');
                     },
                   );
                 },
-                notifParent2: (value){
+                notifParent2: (value) {
                   setState(
-                        () {
-                          weightValues = RangeValues(0,value);
+                    () {
+                      weightValues = RangeValues(0, value);
                       singleWeightValue = value;
                       secondWeightLabel = ('${value.toInt()}');
                     },
@@ -277,7 +286,7 @@ class _BuildEditorState extends State<BuildEditor> {
             labelText: 'Excercise',
           ),
           items: <String>[
-            'Abdominal/Core',
+            'Deadlift',
             'Back',
             'Biceps',
             'Calves',
@@ -606,72 +615,6 @@ class _BuildEditorState extends State<BuildEditor> {
     );
   }
 
-  rangeWithSwitch() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: <Widget>[
-        Container(
-          child: Text(
-            'Reps',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-        ),
-        Container(
-          width: MediaQuery.of(context).size.width * sliderWidth,
-          child: Stack(
-            children: <Widget>[
-              Visibility(
-                visible: sliderRepBool,
-                child: RangeSlider(
-                  inactiveColor: Colors.grey[400],
-                  activeColor: Colors.lightGreen,
-                  labels: repLabels,
-                  min: 0,
-                  max: 50,
-                  values: repValues,
-                  divisions: 100,
-                  onChanged: (value) {
-                    setState(
-                      () {
-                        repValues = RangeValues(value.start, value.end);
-                        repLabels = RangeLabels(
-                            '${value.start.toInt()}', '${value.end.toInt()}');
-                      },
-                    );
-                  },
-                ),
-              ),
-              Visibility(
-                visible: secondRepSliderBool,
-                child: Container(
-                  width: MediaQuery.of(context).size.width * sliderWidth,
-                  child: Slider(
-                    label: secondRepLabel,
-                    value: singleRepValue,
-                    inactiveColor: Colors.grey[400],
-                    activeColor: Colors.lightGreen,
-                    min: 0,
-                    max: 50,
-                    divisions: 100,
-                    onChanged: (value) {
-                      setState(
-                        () {
-                          singleRepValue = value;
-                          secondRepLabel = ('${value.toInt()}');
-                        },
-                      );
-                    },
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
-        repsSwitch(),
-      ],
-    );
-  }
-
   setsWithSwitch() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
@@ -682,108 +625,191 @@ class _BuildEditorState extends State<BuildEditor> {
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
-        Stack(
-          children: <Widget>[
-            Visibility(
-              visible: sliderSetBool,
-              child: Container(
-                width: MediaQuery.of(context).size.width * sliderWidth,
-                child: RangeSlider(
-                  inactiveColor: Colors.grey[400],
-                  activeColor: Colors.lightGreen,
-                  labels: setLabels,
-                  min: 0,
-                  max: 50,
-                  values: setValues,
-                  divisions: 100,
-                  onChanged: (value) {
-                    setState(
-                      () {
-                        setValues = value;
-                        setLabels = RangeLabels(
-                            '${value.start.toInt()}', '${value.end.toInt()}');
-                      },
-                    );
-                  },
-                ),
-              ),
-            ),
-            Visibility(
-              visible: secondSetSliderBool,
-              child: Container(
-                width: MediaQuery.of(context).size.width * sliderWidth,
-                child: Slider(
-                  label: secondSetLabel,
-                  value: singleSetValue,
-                  inactiveColor: Colors.grey[400],
-                  activeColor: Colors.lightGreen,
-                  min: 0,
-                  max: 50,
-                  divisions: 100,
-                  onChanged: (value) {
-                    setState(
-                      () {
-                        singleSetValue = value;
-                        secondSetLabel = ('${value.toInt()}');
-                      },
-                    );
-                  },
-                ),
-              ),
-            ),
-          ],
+        Slid(
+          sliderBool: sliderSetBool,
+          values: setValues,
+          labels: setLabels,
+          secondLabel: secondSetLabel,
+          secondValue: singleSetValue,
+          max: 50,
+          secondSliderbool: secondSetSliderBool,
+          notifParent: (value) {
+            setState(
+                  () {
+                setValues = RangeValues(value.start, value.end);
+                setLabels = RangeLabels(
+                    '${value.start.toInt()}', '${value.end.toInt()}');
+              },
+            );
+          },
+          notifParent2: (value) {
+            setState(
+                  () {
+                setValues = RangeValues(0, value);
+                singleSetValue = value;
+                secondSetLabel = ('${value.toInt()}');
+              },
+            );
+          },
         ),
-        setsSwitch(),
+       setsSwitch(),
+      ],
+    );
+  }
+
+  repsWithSwitch() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: <Widget>[
+        Container(
+          child: Text(
+            'Reps',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
+        Slid(
+          sliderBool: sliderRepBool,
+          values: repValues,
+          labels: repLabels,
+          secondLabel: secondRepLabel,
+          secondValue: singleRepValue,
+          max: 50,
+          secondSliderbool: secondRepSliderBool,
+          notifParent: (value) {
+            setState(
+              () {
+                repValues = RangeValues(value.start, value.end);
+                repLabels = RangeLabels(
+                    '${value.start.toInt()}', '${value.end.toInt()}');
+              },
+            );
+          },
+          notifParent2: (value) {
+            setState(
+              () {
+                repValues = RangeValues(0, value);
+                singleRepValue = value;
+                secondRepLabel = ('${value.toInt()}');
+              },
+            );
+          },
+        ),
+        repsSwitch(),
       ],
     );
   }
 
   workoutPreview() {
     String name = 'test';
-    String description;
+    String description ='Excercise';
+    String sets = '-';
+    String reps = '-';
     if (sliderWeightBool == true) {
       setState(() {
-        name = '${weightValues.start.toInt()}''-''${weightValues.end.toInt()}';
+        name =
+            '${weightValues.start.toInt()}' '-' '${weightValues.end.toInt()}';
       });
-    } else if(sliderWeightBool == false){
+    } else if (sliderWeightBool == false) {
       setState(() {
         name = '${singleWeightValue.toInt()}';
       });
     }
     if (workoutName == null) {
       setState(() {
-        description = '-';
+        description = 'Exercise';
       });
     } else {
       setState(() {
         description = workoutName;
       });
     }
+    if (sliderSetBool == true) {
+      setState(() {
+        sets = '${setValues.start.toInt()}' '-' '${setValues.end.toInt()}';
+      });
+    } else if (sliderSetBool == false) {
+      setState(() {
+        sets = '${singleSetValue.toInt()}';
+      });
+    }
+    if (sliderRepBool == true) {
+      setState(() {
+        reps = '${repValues.start.toInt()}' '-' '${repValues.end.toInt()}';
+      });
+    } else if (sliderRepBool == false) {
+      setState(() {
+        reps = '${singleRepValue.toInt()}';
+      });
+    }
 
     return Container(
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           Column(
             children: <Widget>[
-              Text('Description'),
-              Text(name),
-              Text(description),
+              Text(
+                'Description',
+                style: TextStyle(fontFamily: 'Marker', fontSize: 25),
+              ),
+              Text(
+                description,
+                style: TextStyle(fontFamily: 'Marker', fontSize: 20),
+              ),
+            ],
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 50),
+          ),
+          Column(
+            children: <Widget>[
+              Text(
+                'Sets',
+                style: TextStyle(fontFamily: 'Marker', fontSize: 25),
+              ),
+              Text(
+                sets,
+                style: TextStyle(fontFamily: 'Marker', fontSize: 20),
+              ),
             ],
           ),
           Column(
-            children: <Widget>[],
+            children: <Widget>[
+              Text(
+                'Reps',
+                style: TextStyle(fontFamily: 'Marker', fontSize: 25),
+              ),
+              Text(
+                reps,
+                style: TextStyle(fontFamily: 'Marker', fontSize: 20),
+              ),
+            ],
           ),
           Column(
-            children: <Widget>[],
-          ),
-          Column(
-            children: <Widget>[],
+            children: <Widget>[
+              Text(
+                'Wt',
+                style: TextStyle(fontFamily: 'Marker', fontSize: 25),
+              ),
+              Text(
+                name,
+                style: TextStyle(fontFamily: 'Marker', fontSize: 20),
+              ),
+            ],
           ),
         ],
       ),
     );
   }
-  slider1(bool sliderBool, RangeLabels labels, RangeValues values, bool secondSlider, String secondLabel, double secondValue,){
+
+  slider1(
+    bool sliderBool,
+    RangeLabels labels,
+    RangeValues values,
+    bool secondSlider,
+    String secondLabel,
+    double secondValue,
+  ) {
     return Container(
       width: MediaQuery.of(context).size.width * sliderWidth,
       child: Stack(
@@ -800,10 +826,10 @@ class _BuildEditorState extends State<BuildEditor> {
               divisions: 100,
               onChanged: (value) {
                 setState(
-                      () {
+                  () {
                     values = RangeValues(value.start, value.end);
-                    labels = RangeLabels('${value.start.toInt()}',
-                        '${value.end.toInt()}');
+                    labels = RangeLabels(
+                        '${value.start.toInt()}', '${value.end.toInt()}');
                   },
                 );
               },
@@ -823,7 +849,7 @@ class _BuildEditorState extends State<BuildEditor> {
                 divisions: 100,
                 onChanged: (value) {
                   setState(
-                        () {
+                    () {
                       secondValue = value;
                       secondLabel = ('${value.toInt()}');
                     },
@@ -837,9 +863,19 @@ class _BuildEditorState extends State<BuildEditor> {
     );
   }
 }
-class Slid extends StatefulWidget {
 
-  Slid({Key key, this.sliderBool,this.values,this.notifParent,this.notifParent2,this.secondLabel,this.secondValue,this.secondSliderbool,this.labels});
+class Slid extends StatefulWidget {
+  Slid(
+      {Key key,
+      @required this.sliderBool,
+      @required this.values,
+      @required this.notifParent,
+      @required this.notifParent2,
+      @required this.secondLabel,
+      @required this.secondValue,
+      @required this.secondSliderbool,
+      @required this.max,
+      @required this.labels});
 
   final bool sliderBool;
   final RangeValues values;
@@ -849,6 +885,7 @@ class Slid extends StatefulWidget {
   final bool secondSliderbool;
   final String secondLabel;
   final double secondValue;
+  final double max;
   @override
   _SlidState createState() => _SlidState();
 }
@@ -867,7 +904,7 @@ class _SlidState extends State<Slid> {
               activeColor: Colors.lightGreen,
               labels: widget.labels,
               min: 0,
-              max: 500,
+              max: widget.max,
               values: widget.values,
               divisions: 100,
               onChanged: (value) {
@@ -885,7 +922,7 @@ class _SlidState extends State<Slid> {
                 inactiveColor: Colors.grey[400],
                 activeColor: Colors.lightGreen,
                 min: 0,
-                max: 500,
+                max: widget.max,
                 divisions: 100,
                 onChanged: (value) {
                   widget.notifParent2(value);
@@ -898,7 +935,6 @@ class _SlidState extends State<Slid> {
     );
   }
 }
-
 
 class DetailsItem extends StatefulWidget {
   DetailsItem(
