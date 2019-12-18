@@ -48,6 +48,7 @@ class _BuildEditorState extends State<BuildEditor> {
   String secondWeightLabel;
 
   final double sliderWidth = .72;
+  String previewFont = 'Handlee';
 
   @override
   Widget build(BuildContext context) {
@@ -99,6 +100,9 @@ class _BuildEditorState extends State<BuildEditor> {
         addWeight2(),
         setsNreps(),
         addComment(),
+        Container(
+          height: 30,
+        ),
         workoutPreview(),
       ],
     );
@@ -157,7 +161,7 @@ class _BuildEditorState extends State<BuildEditor> {
             });
           }
           setState(
-                () {
+            () {
               sliderSetBool = newVal;
               secondSetSliderBool = !secondSetSliderBool;
             },
@@ -635,7 +639,7 @@ class _BuildEditorState extends State<BuildEditor> {
           secondSliderbool: secondSetSliderBool,
           notifParent: (value) {
             setState(
-                  () {
+              () {
                 setValues = RangeValues(value.start, value.end);
                 setLabels = RangeLabels(
                     '${value.start.toInt()}', '${value.end.toInt()}');
@@ -644,7 +648,7 @@ class _BuildEditorState extends State<BuildEditor> {
           },
           notifParent2: (value) {
             setState(
-                  () {
+              () {
                 setValues = RangeValues(0, value);
                 singleSetValue = value;
                 secondSetLabel = ('${value.toInt()}');
@@ -652,7 +656,7 @@ class _BuildEditorState extends State<BuildEditor> {
             );
           },
         ),
-       setsSwitch(),
+        setsSwitch(),
       ],
     );
   }
@@ -701,7 +705,7 @@ class _BuildEditorState extends State<BuildEditor> {
 
   workoutPreview() {
     String name = 'test';
-    String description ='Excercise';
+    String description = 'Excercise';
     String sets = '-';
     String reps = '-';
     if (sliderWeightBool == true) {
@@ -750,52 +754,61 @@ class _BuildEditorState extends State<BuildEditor> {
             children: <Widget>[
               Text(
                 'Description',
-                style: TextStyle(fontFamily: 'Marker', fontSize: 25),
+                style: TextStyle(fontFamily: previewFont, fontSize: 25),
               ),
               Text(
                 description,
-                style: TextStyle(fontFamily: 'Marker', fontSize: 20),
+                style: TextStyle(fontFamily: previewFont, fontSize: 20),
               ),
             ],
           ),
           Padding(
-            padding: EdgeInsets.only(left: 50),
+            padding: EdgeInsets.only(left: 40),
           ),
-          Column(
-            children: <Widget>[
-              Text(
-                'Sets',
-                style: TextStyle(fontFamily: 'Marker', fontSize: 25),
-              ),
-              Text(
-                sets,
-                style: TextStyle(fontFamily: 'Marker', fontSize: 20),
-              ),
-            ],
+          Container(
+            width: 65,
+            child: Column(
+              children: <Widget>[
+                Text(
+                  'Sets',
+                  style: TextStyle(fontFamily: previewFont, fontSize: 25),
+                ),
+                Text(
+                  sets,
+                  style: TextStyle(fontFamily: previewFont, fontSize: 20),
+                ),
+              ],
+            ),
           ),
-          Column(
-            children: <Widget>[
-              Text(
-                'Reps',
-                style: TextStyle(fontFamily: 'Marker', fontSize: 25),
-              ),
-              Text(
-                reps,
-                style: TextStyle(fontFamily: 'Marker', fontSize: 20),
-              ),
-            ],
+          Container(
+            width: 65,
+            child: Column(
+              children: <Widget>[
+                Text(
+                  'Reps',
+                  style: TextStyle(fontFamily: previewFont, fontSize: 25),
+                ),
+                Text(
+                  reps,
+                  style: TextStyle(fontFamily: previewFont, fontSize: 20),
+                ),
+              ],
+            ),
           ),
-          Column(
-            children: <Widget>[
-              Text(
-                'Wt',
-                style: TextStyle(fontFamily: 'Marker', fontSize: 25),
-              ),
-              Text(
-                name,
-                style: TextStyle(fontFamily: 'Marker', fontSize: 20),
-              ),
-            ],
+          Container(
+            width: 90,
+            child: Column(
+              children: <Widget>[
+                Text(
+                  'Wt',
+                  style: TextStyle(fontFamily: previewFont, fontSize: 25),
+                ),
+                Text(
+                  name,
+                  style: TextStyle(fontFamily: previewFont, fontSize: 20),
+                ),
+              ],
+            ),
           ),
         ],
       ),
