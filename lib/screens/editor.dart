@@ -17,6 +17,7 @@ class _BuildEditorState extends State<BuildEditor> {
   double bottomPaddingDetail = 2;
   String weightUnit = 'lbs';
   String equipmentQ;
+  String positionQ;
   String gripQ;
   String grip2Q;
   String inclineQ;
@@ -69,6 +70,10 @@ class _BuildEditorState extends State<BuildEditor> {
                 width: 10,
               ),
               specificWorkout(),
+              Container(
+                width: 10,
+              ),
+              equipmentDetail2(),
             ],
           ),
         ),
@@ -283,7 +288,7 @@ class _BuildEditorState extends State<BuildEditor> {
 
   specificWorkout() {
     return Container(
-      width: MediaQuery.of(context).size.width * .55,
+      width: MediaQuery.of(context).size.width * .40,
       child: DropdownButtonFormField(
           decoration: InputDecoration(
             contentPadding: EdgeInsets.only(bottom: bottomPaddingDetail),
@@ -300,7 +305,8 @@ class _BuildEditorState extends State<BuildEditor> {
             'Hamstrings',
             'Lats',
             'Quads',
-            'Shoulders/Delts',
+            'Shoulders',
+            'Delts',
             'Traps',
             'Triceps',
           ].map<DropdownMenuItem<String>>(
@@ -465,6 +471,41 @@ class _BuildEditorState extends State<BuildEditor> {
           child: DropdownButtonFormField(
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.only(bottom: bottomPaddingDetail),
+                labelText: 'Position',
+              ),
+              items: <String>[
+                'Bench',
+                'Standing',
+                'Sitting',
+                'Laying Down',
+                'Other',
+              ].map<DropdownMenuItem<String>>(
+                (String value) {
+                  return DropdownMenuItem(
+                    child: Text(value),
+                    value: value,
+                  );
+                },
+              ).toList(),
+              onChanged: (value) {
+                setState(() {
+                  positionQ = value;
+                });
+              },
+              value: positionQ),
+        ),
+      ],
+    );
+  }
+
+  equipmentDetail2() {
+    return Column(
+      children: <Widget>[
+        Container(
+          width: 125,
+          child: DropdownButtonFormField(
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.only(bottom: bottomPaddingDetail),
                 labelText: 'Equipment',
               ),
               items: <String>[
@@ -489,6 +530,17 @@ class _BuildEditorState extends State<BuildEditor> {
               value: equipmentQ),
         ),
       ],
+    );
+  }
+
+  dropDownDetails() {
+    return Container(
+      child: Column(
+        children: <Widget>[
+          Text('.$equipmentQ'),
+          Text('.$positionQ'),
+        ],
+      ),
     );
   }
 
@@ -760,6 +812,7 @@ class _BuildEditorState extends State<BuildEditor> {
                 description,
                 style: TextStyle(fontFamily: previewFont, fontSize: 20),
               ),
+              dropDownDetails(),
             ],
           ),
           Padding(
