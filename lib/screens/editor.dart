@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:keyboard_avoider/keyboard_avoider.dart';
 
 class BuildEditor extends StatefulWidget {
   @override
@@ -23,12 +24,14 @@ class _BuildEditorState extends State<BuildEditor> {
   String inclineQ;
   String bodyPartQ;
   String workoutName;
+  String commentText;
   RangeValues weightValues = RangeValues(0, 0);
   RangeLabels weightLabels = RangeLabels('0', '500');
   RangeValues setValues = RangeValues(0, 0);
   RangeLabels setLabels = RangeLabels('0', '50');
   RangeValues repValues = RangeValues(0, 0);
   RangeLabels repLabels = RangeLabels('0', '50');
+  ScrollPhysics scroll;
 
   double singleRepValue = 0;
   bool checkRepBool = false;
@@ -53,63 +56,66 @@ class _BuildEditorState extends State<BuildEditor> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Padding(
-          padding: EdgeInsets.only(top: 5),
-        ),
-        FittedBox(
-          fit: BoxFit.fitWidth,
-          child: Row(
-            children: <Widget>[
-              Container(
-                width: 10,
-              ),
-              bodyPartDetail(),
-              Container(
-                width: 10,
-              ),
-              specificWorkout(),
-              Container(
-                width: 10,
-              ),
-              equipmentDetail2(),
-            ],
+    return SingleChildScrollView(
+      physics: NeverScrollableScrollPhysics(),
+      child: Column(
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(top: 5),
           ),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[],
-        ),
-        Padding(
-          padding: EdgeInsets.only(top: 50),
-        ),
-        Align(
-          alignment: Alignment.center,
-          child: Text(
-            'Additional Details\n(Leave blank for default)',
-            style: TextStyle(),
-            textAlign: TextAlign.center,
+          FittedBox(
+            fit: BoxFit.fitWidth,
+            child: Row(
+              children: <Widget>[
+                Container(
+                  width: 10,
+                ),
+                bodyPartDetail(),
+                Container(
+                  width: 10,
+                ),
+                specificWorkout(),
+                Container(
+                  width: 10,
+                ),
+                equipmentDetail2(),
+              ],
+            ),
           ),
-        ),
-        otherDetails(),
-        Padding(
-          padding: EdgeInsets.only(bottom: 5),
-        ),
-        Container(
-          padding: EdgeInsets.only(right: 8),
-          height: 15,
-          alignment: Alignment.bottomRight,
-          child: Text('Range'),
-        ),
-        addWeight2(),
-        setsNreps(),
-        addComment(),
-        Container(
-          height: 30,
-        ),
-        workoutPreview(),
-      ],
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[],
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 50),
+          ),
+          Align(
+            alignment: Alignment.center,
+            child: Text(
+              'Additional Details\n(Leave blank for default)',
+              style: TextStyle(),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          otherDetails(),
+          Padding(
+            padding: EdgeInsets.only(bottom: 5),
+          ),
+          Container(
+            padding: EdgeInsets.only(right: 8),
+            height: 15,
+            alignment: Alignment.bottomRight,
+            child: Text('Range'),
+          ),
+          addWeight2(),
+          setsNreps(),
+          addComment(),
+          Container(
+            height: 30,
+          ),
+          workoutPreview(),
+        ],
+      ),
     );
   }
 
@@ -200,7 +206,7 @@ class _BuildEditorState extends State<BuildEditor> {
 
   addComment() {
     return Container(
-      height: 40,
+      height: 60,
       width: MediaQuery.of(context).size.width * .85,
       child: TextField(
         decoration: InputDecoration(
@@ -211,7 +217,12 @@ class _BuildEditorState extends State<BuildEditor> {
         ),
         maxLines: 3,
         textAlign: TextAlign.center,
-        onChanged: null,
+        onChanged: (text){
+          setState(() {
+            commentText = text;
+          });
+        }
+
       ),
     );
   }
@@ -537,8 +548,21 @@ class _BuildEditorState extends State<BuildEditor> {
     return Container(
       child: Column(
         children: <Widget>[
-          Text('.$equipmentQ'),
-          Text('.$positionQ'),
+          equipmentQ != null
+              ? Text(equipmentQ)
+              : Container(
+                  child: Text(''),
+                ),
+          positionQ != null
+              ? Text(positionQ)
+              : Container(
+                  child: Text(''),
+                ),
+          gripQ != null
+              ? Text('$gripQ' ' grip')
+              : Container(
+                  child: Text(''),
+                ),
         ],
       ),
     );
@@ -799,8 +823,10 @@ class _BuildEditorState extends State<BuildEditor> {
     }
 
     return Container(
+      width: MediaQuery.of(context).size.width,
+      height: 150,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Column(
             children: <Widget>[
@@ -816,52 +842,73 @@ class _BuildEditorState extends State<BuildEditor> {
             ],
           ),
           Padding(
-            padding: EdgeInsets.only(left: 40),
+            padding: EdgeInsets.only(left: 30),
           ),
-          Container(
-            width: 65,
-            child: Column(
-              children: <Widget>[
-                Text(
-                  'Sets',
-                  style: TextStyle(fontFamily: previewFont, fontSize: 25),
+          Column(
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  Container(
+                    width: 65,
+                    child: Column(
+                      children: <Widget>[
+                        Text(
+                          'Sets',
+                          style:
+                              TextStyle(fontFamily: previewFont, fontSize: 25),
+                        ),
+                        Text(
+                          sets,
+                          style:
+                              TextStyle(fontFamily: previewFont, fontSize: 20),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    width: 65,
+                    child: Column(
+                      children: <Widget>[
+                        Text(
+                          'Reps',
+                          style:
+                              TextStyle(fontFamily: previewFont, fontSize: 25),
+                        ),
+                        Text(
+                          reps,
+                          style:
+                              TextStyle(fontFamily: previewFont, fontSize: 20),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    width: 90,
+                    child: Column(
+                      children: <Widget>[
+                        Text(
+                          'Wt',
+                          style:
+                              TextStyle(fontFamily: previewFont, fontSize: 25),
+                        ),
+                        Text(
+                          name,
+                          style:
+                              TextStyle(fontFamily: previewFont, fontSize: 20),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              Container(
+                height: 50,
+                width: 220,
+                child: (
+                commentText != null ? Text(commentText) : Container()
                 ),
-                Text(
-                  sets,
-                  style: TextStyle(fontFamily: previewFont, fontSize: 20),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            width: 65,
-            child: Column(
-              children: <Widget>[
-                Text(
-                  'Reps',
-                  style: TextStyle(fontFamily: previewFont, fontSize: 25),
-                ),
-                Text(
-                  reps,
-                  style: TextStyle(fontFamily: previewFont, fontSize: 20),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            width: 90,
-            child: Column(
-              children: <Widget>[
-                Text(
-                  'Wt',
-                  style: TextStyle(fontFamily: previewFont, fontSize: 25),
-                ),
-                Text(
-                  name,
-                  style: TextStyle(fontFamily: previewFont, fontSize: 20),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ],
       ),

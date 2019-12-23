@@ -36,6 +36,7 @@ dependencies:
   flutter_page_indicator: ^0.0.3
   extended_image: ^0.6.5
   random_color: ^1.0.3
+  keyboard_avoider: ^0.1.2
 
 
 
