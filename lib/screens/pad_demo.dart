@@ -93,12 +93,7 @@ class _PadDemoState extends State<PadDemo> {
       children: <Widget>[
         blueLines(),
         Positioned(
-          top: -162,
-          left: -14,
-          child: hinges(),
-        ),
-        Positioned(
-          left: 60,
+          left: MediaQuery.of(context).size.width*.125,
           child: redLines(),
         ),
       ],
@@ -131,6 +126,7 @@ class _PadDemoState extends State<PadDemo> {
         Padding(
           padding: EdgeInsets.only(top: 42),
         ),
+        blueLinesEditor(),
         blueLinesEditor(),
         blueLinesEditor(),
         blueLinesEditor(),

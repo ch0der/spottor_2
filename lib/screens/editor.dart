@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
+import 'package:spottor_2/widgets/background_pad.dart';
 
 class BuildEditor extends StatefulWidget {
   @override

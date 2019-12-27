@@ -25,7 +25,7 @@ Future main() async{
             '/': (context) => MyApp(),
             '/second': (context) => SpottorHomeScreen(),
             '/splash': (context) => SplashScreen2(),
-            '/demo': (context) => PadDemo(),
+            '/demo': (context) => PadDemo2(itemCount: 200,),
             // When we navigate to the "/second" route, build the SecondScreen Widget
           },
         );
