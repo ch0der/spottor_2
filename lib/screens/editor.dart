@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:spottor_2/widgets/background_pad.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class BuildEditor extends StatefulWidget {
   @override
@@ -53,10 +54,14 @@ class _BuildEditorState extends State<BuildEditor> {
   String secondWeightLabel;
 
   final double sliderWidth = .72;
-  String previewFont = 'Handlee';
+  String previewFont = 'PT';
+  final Color switchColor = Colors.green;
+
 
   @override
   Widget build(BuildContext context) {
+
+
     return SingleChildScrollView(
       physics: NeverScrollableScrollPhysics(),
       child: Column(
@@ -64,39 +69,21 @@ class _BuildEditorState extends State<BuildEditor> {
           Padding(
             padding: EdgeInsets.only(top: 5),
           ),
-          FittedBox(
-            fit: BoxFit.fitWidth,
-            child: Row(
-              children: <Widget>[
-                Container(
-                  width: 10,
-                ),
-                bodyPartDetail(),
-                Container(
-                  width: 10,
-                ),
-                specificWorkout(),
-                Container(
-                  width: 10,
-                ),
-                equipmentDetail2(),
-              ],
-            ),
-          ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[],
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 50),
-          ),
-          Align(
-            alignment: Alignment.center,
-            child: Text(
-              'Additional Details\n(Leave blank for default)',
-              style: TextStyle(),
-              textAlign: TextAlign.center,
-            ),
+            children: <Widget>[
+              Container(
+                width: 10,
+              ),
+              bodyPartDetail(),
+              Container(
+                width: 10,
+              ),
+              specificWorkout(),
+              Container(
+                width: 10,
+              ),
+              equipmentDetail2(),
+            ],
           ),
           otherDetails(),
           Padding(
@@ -143,6 +130,7 @@ class _BuildEditorState extends State<BuildEditor> {
     return Container(
       width: MediaQuery.of(context).size.width * .15,
       child: Switch(
+        activeColor: switchColor,
         value: sliderWeightBool,
         onChanged: (newVal) {
           if (singleWeightValue != weightValues.end) {
@@ -165,6 +153,7 @@ class _BuildEditorState extends State<BuildEditor> {
     return Container(
       width: MediaQuery.of(context).size.width * .15,
       child: Switch(
+        activeColor: switchColor,
         value: sliderSetBool,
         onChanged: (newVal) {
           if (singleSetValue != setValues.end) {
@@ -187,6 +176,7 @@ class _BuildEditorState extends State<BuildEditor> {
     return Container(
       width: MediaQuery.of(context).size.width * .15,
       child: Switch(
+        activeColor: switchColor,
         value: sliderRepBool,
         onChanged: (newVal) {
           if (singleRepValue != repValues.end) {
@@ -300,8 +290,9 @@ class _BuildEditorState extends State<BuildEditor> {
 
   specificWorkout() {
     return Container(
-      width: MediaQuery.of(context).size.width * .40,
+      width: detailWidth(context),
       child: DropdownButtonFormField(
+        isExpanded: true,
           decoration: InputDecoration(
             contentPadding: EdgeInsets.only(bottom: bottomPaddingDetail),
             labelText: 'Excercise',
@@ -324,6 +315,7 @@ class _BuildEditorState extends State<BuildEditor> {
           ].map<DropdownMenuItem<String>>(
             (String value) {
               return DropdownMenuItem(
+
                 child: Text(value),
                 value: value,
               );
@@ -347,8 +339,7 @@ class _BuildEditorState extends State<BuildEditor> {
   }
 
   otherDetails() {
-    return FittedBox(
-      fit: BoxFit.fitWidth,
+    return Container(
       child: Row(
         children: <Widget>[
           Padding(
@@ -479,8 +470,9 @@ class _BuildEditorState extends State<BuildEditor> {
     return Column(
       children: <Widget>[
         Container(
-          width: 125,
+          width: detailWidth(context),
           child: DropdownButtonFormField(
+            isExpanded: true,
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.only(bottom: bottomPaddingDetail),
                 labelText: 'Position',
@@ -514,8 +506,9 @@ class _BuildEditorState extends State<BuildEditor> {
     return Column(
       children: <Widget>[
         Container(
-          width: 125,
+          width: detailWidth(context),
           child: DropdownButtonFormField(
+            isExpanded: true,
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.only(bottom: bottomPaddingDetail),
                 labelText: 'Equipment',
@@ -571,8 +564,9 @@ class _BuildEditorState extends State<BuildEditor> {
 
   gripDetail() {
     return Container(
-      width: 125,
+      width: detailWidth(context),
       child: DropdownButtonFormField(
+        isExpanded: true,
           decoration: InputDecoration(
             contentPadding: EdgeInsets.only(bottom: bottomPaddingDetail),
             labelText: 'Grip',
@@ -599,8 +593,9 @@ class _BuildEditorState extends State<BuildEditor> {
 
   grip2Detail() {
     return Container(
-      width: 125,
+      width: detailWidth(context),
       child: DropdownButtonFormField(
+        isExpanded: true,
           decoration: InputDecoration(
             contentPadding: EdgeInsets.only(bottom: bottomPaddingDetail),
             labelText: 'Grip',
@@ -629,8 +624,9 @@ class _BuildEditorState extends State<BuildEditor> {
 
   inclineDetail() {
     return Container(
-      width: 125,
+      width: detailWidth(context),
       child: DropdownButtonFormField(
+        isExpanded: true,
           decoration: InputDecoration(
             contentPadding: EdgeInsets.only(bottom: bottomPaddingDetail),
             labelText: 'Incline',
@@ -659,8 +655,9 @@ class _BuildEditorState extends State<BuildEditor> {
 
   bodyPartDetail() {
     return Container(
-      width: 150,
+      width: detailWidth(context),
       child: DropdownButtonFormField(
+        isExpanded: true,
           decoration: InputDecoration(
             contentPadding: EdgeInsets.only(bottom: bottomPaddingDetail),
             labelText: 'Body Part',
@@ -682,7 +679,7 @@ class _BuildEditorState extends State<BuildEditor> {
           ].map<DropdownMenuItem<String>>(
             (String value) {
               return DropdownMenuItem(
-                child: Text(value),
+                child: AutoSizeText(value,),
                 value: value,
               );
             },
@@ -915,6 +912,13 @@ class _BuildEditorState extends State<BuildEditor> {
       ),
     );
   }
+  Size screenSize(BuildContext context) {
+    return MediaQuery.of(context).size;
+  }
+  double detailWidth(BuildContext context,
+      ) {
+    return (screenSize(context).width *.3);
+  }
 
   slider1(
     bool sliderBool,
@@ -1077,6 +1081,7 @@ class _DetailsItemState extends State<DetailsItem> {
     return Container(
       width: 125,
       child: DropdownButtonFormField(
+        isExpanded: true,
         decoration: InputDecoration(
           labelText: widget.label,
           hintText: widget.hint,

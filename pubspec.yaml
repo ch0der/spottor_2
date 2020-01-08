@@ -37,6 +37,7 @@ dependencies:
   extended_image: ^0.6.5
   random_color: ^1.0.3
   keyboard_avoider: ^0.1.2
+  auto_size_text: ^2.1.0
 
 
 
@@ -108,3 +109,12 @@ flutter:
     - family: Coiny
       fonts:
         - asset: assets/fonts/coiny.ttf
+    - family: Acme
+      fonts:
+        - asset: assets/fonts/Acme-Regular.ttf
+    - family: Bree
+      fonts:
+        - asset: assets/fonts/BreeSerif-Regular.ttf
+    - family: PT
+      fonts:
+        - asset: assets/fonts/PTSerif-Regular.ttf

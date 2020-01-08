@@ -65,7 +65,7 @@ class _myWorkoutPageState extends State<myWorkoutPage> {
           padding: EdgeInsets.only(left: 20),
           child: Text('Workouts',textAlign: TextAlign.left,style: TextStyle(fontSize: 30,fontFamily: 'Coiny'),),
         ),),
-        Padding(padding: EdgeInsets.only(left: 20,top: 10),child: swiperText(),),
+        Padding(padding: EdgeInsets.only(top: 10),child: swiperText(),),
         Container(
           height: 10,
         ),
