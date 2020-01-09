@@ -27,6 +27,7 @@ class _BuildEditorState extends State<BuildEditor> {
   String bodyPartQ;
   String workoutName;
   String commentText;
+  String nicknameText = 'Description';
   RangeValues weightValues = RangeValues(0, 0);
   RangeLabels weightLabels = RangeLabels('0', '500');
   RangeValues setValues = RangeValues(0, 0);
@@ -57,11 +58,8 @@ class _BuildEditorState extends State<BuildEditor> {
   String previewFont = 'PT';
   final Color switchColor = Colors.green;
 
-
   @override
   Widget build(BuildContext context) {
-
-
     return SingleChildScrollView(
       physics: NeverScrollableScrollPhysics(),
       child: Column(
@@ -102,6 +100,7 @@ class _BuildEditorState extends State<BuildEditor> {
             height: 30,
           ),
           workoutPreview(),
+          workoutNickname(),
         ],
       ),
     );
@@ -195,26 +194,55 @@ class _BuildEditorState extends State<BuildEditor> {
     );
   }
 
+  workoutNickname() {
+
+    return Container(
+      child: Row(
+        children: <Widget>[
+          Container(
+            child: Text('Name'),
+          ),
+          Container(
+            width: 200,
+            height: 25,
+            child: (nicknameText != null ? TextField(
+                decoration: InputDecoration(
+                  hintText: 'Enter a nickname',
+                  hintStyle: TextStyle(
+                    color: Colors.grey[400],
+                  ),
+                ),
+                maxLines: 1,
+                textAlign: TextAlign.center,
+                onChanged: (text) {
+                  setState(() {
+                    nicknameText = text;
+                  });
+                }) : Container()),
+          ),
+        ],
+      ),
+    );
+  }
+
   addComment() {
     return Container(
       height: 60,
       width: MediaQuery.of(context).size.width * .85,
       child: TextField(
-        decoration: InputDecoration(
-          hintText: 'Additional Comments',
-          hintStyle: TextStyle(
-            color: Colors.grey[400],
+          decoration: InputDecoration(
+            hintText: 'Additional Comments',
+            hintStyle: TextStyle(
+              color: Colors.grey[400],
+            ),
           ),
-        ),
-        maxLines: 3,
-        textAlign: TextAlign.center,
-        onChanged: (text){
-          setState(() {
-            commentText = text;
-          });
-        }
-
-      ),
+          maxLines: 3,
+          textAlign: TextAlign.center,
+          onChanged: (text) {
+            setState(() {
+              commentText = text;
+            });
+          }),
     );
   }
 
@@ -292,7 +320,7 @@ class _BuildEditorState extends State<BuildEditor> {
     return Container(
       width: detailWidth(context),
       child: DropdownButtonFormField(
-        isExpanded: true,
+          isExpanded: true,
           decoration: InputDecoration(
             contentPadding: EdgeInsets.only(bottom: bottomPaddingDetail),
             labelText: 'Excercise',
@@ -315,7 +343,6 @@ class _BuildEditorState extends State<BuildEditor> {
           ].map<DropdownMenuItem<String>>(
             (String value) {
               return DropdownMenuItem(
-
                 child: Text(value),
                 value: value,
               );
@@ -472,7 +499,7 @@ class _BuildEditorState extends State<BuildEditor> {
         Container(
           width: detailWidth(context),
           child: DropdownButtonFormField(
-            isExpanded: true,
+              isExpanded: true,
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.only(bottom: bottomPaddingDetail),
                 labelText: 'Position',
@@ -508,7 +535,7 @@ class _BuildEditorState extends State<BuildEditor> {
         Container(
           width: detailWidth(context),
           child: DropdownButtonFormField(
-            isExpanded: true,
+              isExpanded: true,
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.only(bottom: bottomPaddingDetail),
                 labelText: 'Equipment',
@@ -566,7 +593,7 @@ class _BuildEditorState extends State<BuildEditor> {
     return Container(
       width: detailWidth(context),
       child: DropdownButtonFormField(
-        isExpanded: true,
+          isExpanded: true,
           decoration: InputDecoration(
             contentPadding: EdgeInsets.only(bottom: bottomPaddingDetail),
             labelText: 'Grip',
@@ -595,7 +622,7 @@ class _BuildEditorState extends State<BuildEditor> {
     return Container(
       width: detailWidth(context),
       child: DropdownButtonFormField(
-        isExpanded: true,
+          isExpanded: true,
           decoration: InputDecoration(
             contentPadding: EdgeInsets.only(bottom: bottomPaddingDetail),
             labelText: 'Grip',
@@ -626,7 +653,7 @@ class _BuildEditorState extends State<BuildEditor> {
     return Container(
       width: detailWidth(context),
       child: DropdownButtonFormField(
-        isExpanded: true,
+          isExpanded: true,
           decoration: InputDecoration(
             contentPadding: EdgeInsets.only(bottom: bottomPaddingDetail),
             labelText: 'Incline',
@@ -657,7 +684,7 @@ class _BuildEditorState extends State<BuildEditor> {
     return Container(
       width: detailWidth(context),
       child: DropdownButtonFormField(
-        isExpanded: true,
+          isExpanded: true,
           decoration: InputDecoration(
             contentPadding: EdgeInsets.only(bottom: bottomPaddingDetail),
             labelText: 'Body Part',
@@ -679,7 +706,9 @@ class _BuildEditorState extends State<BuildEditor> {
           ].map<DropdownMenuItem<String>>(
             (String value) {
               return DropdownMenuItem(
-                child: AutoSizeText(value,),
+                child: AutoSizeText(
+                  value,
+                ),
                 value: value,
               );
             },
@@ -827,10 +856,16 @@ class _BuildEditorState extends State<BuildEditor> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              Text(
-                'Description',
-                style: TextStyle(fontFamily: previewFont, fontSize: 25),
+              Container(
+                width: 120,
+                child: AutoSizeText(
+                  nicknameText,
+                  style: TextStyle(fontFamily: previewFont, fontSize: 25),
+                  maxLines: 1,
+                  textAlign: TextAlign.center,
+                ),
               ),
               Text(
                 description,
@@ -902,9 +937,7 @@ class _BuildEditorState extends State<BuildEditor> {
               Container(
                 height: 50,
                 width: 220,
-                child: (
-                commentText != null ? Text(commentText) : Container()
-                ),
+                child: (commentText != null ? Text(commentText) : Container()),
               ),
             ],
           ),
@@ -912,12 +945,15 @@ class _BuildEditorState extends State<BuildEditor> {
       ),
     );
   }
+
   Size screenSize(BuildContext context) {
     return MediaQuery.of(context).size;
   }
-  double detailWidth(BuildContext context,
-      ) {
-    return (screenSize(context).width *.3);
+
+  double detailWidth(
+    BuildContext context,
+  ) {
+    return (screenSize(context).width * .3);
   }
 
   slider1(
