@@ -64,8 +64,10 @@ class _BuildEditorState extends State<BuildEditor> {
       physics: NeverScrollableScrollPhysics(),
       child: Column(
         children: <Widget>[
+          Padding(padding: EdgeInsets.only(top: 5)),
+          workoutNickname(),
           Padding(
-            padding: EdgeInsets.only(top: 5),
+            padding: EdgeInsets.only(top: 15),
           ),
           Row(
             children: <Widget>[
@@ -100,7 +102,7 @@ class _BuildEditorState extends State<BuildEditor> {
             height: 30,
           ),
           workoutPreview(),
-          workoutNickname(),
+
         ],
       ),
     );
@@ -198,13 +200,11 @@ class _BuildEditorState extends State<BuildEditor> {
 
     return Container(
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Container(
-            child: Text('Name'),
-          ),
-          Container(
-            width: 200,
-            height: 25,
+            width: MediaQuery.of(context).size.width*.75,
+            height: 35,
             child: (nicknameText != null ? TextField(
                 decoration: InputDecoration(
                   hintText: 'Enter a nickname',

@@ -8,15 +8,15 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:spottor_2/widgets/primaryPad.dart';
 import 'package:random_color/random_color.dart';
 
-class myWorkoutPage extends StatefulWidget {
+class MyWorkoutPage extends StatefulWidget {
 
 
   @override
-  _myWorkoutPageState createState() => _myWorkoutPageState();
+  _MyWorkoutPageState createState() => _MyWorkoutPageState();
 }
 RandomColor _randomColor = RandomColor();
 
-class _myWorkoutPageState extends State<myWorkoutPage> {
+class _MyWorkoutPageState extends State<MyWorkoutPage> {
   final List imgList = [
     'assets/imgs/stockphotos/workout1.jpg',
     'assets/imgs/stockphotos/workout2.jpg',

@@ -9,6 +9,7 @@ import 'package:spottor_2/screens/testing_3d_thing.dart';
 import 'package:spottor_2/widgets/preview_pad.dart';
 import 'package:spottor_2/resources/blocs/font_bloc.dart';
 import 'package:spottor_2/widgets/primaryPad.dart';
+import 'addWorkoutsToLists.dart';
 
 class SpottorHomeScreen extends StatefulWidget {
   @override
@@ -30,12 +31,16 @@ class _SpottorHomeScreenState extends State<SpottorHomeScreen>
     Tab(
       text: 'Three',
     ),
+    Tab(
+      text: 'Four',
+    ),
   ];
   final List<Widget> _children = [
-    myWorkoutPage(),
+    MyWorkoutPage(),
     PadTest(),
     EditSelector(),
     BuildEditor(),
+    AddWorkoutsToList(),
   ];
 
   TabController _tabController;
