@@ -1,41 +1,77 @@
 // To parse this JSON data, do
 //
-//     final workout = workoutFromJson(jsonString);
+//     final exercise = exerciseFromJson(jsonString);
 
 import 'dart:convert';
 
-Workout workoutFromJson(String str) => Workout.fromJson(json.decode(str));
+Exercise exerciseFromJson(String str) => Exercise.fromJson(json.decode(str));
 
-String workoutToJson(Workout data) => json.encode(data.toJson());
+String exerciseToJson(Exercise data) => json.encode(data.toJson());
 
-class Workout {
+class Exercise {
   int id;
-  String category;
-  String name;
-  String description;
+  String bodyPart;
+  String nickname;
+  String exercise;
+  String equipment;
+  String position;
+  String grip;
+  String incline;
   String note;
+  String weight;
+  String weight2;
+  String sets;
+  String reps;
+  bool lbs;
 
-  Workout({
+  Exercise({
     this.id,
-    this.category,
-    this.name,
-    this.description,
+    this.bodyPart,
+    this.nickname,
+    this.exercise,
+    this.equipment,
+    this.position,
+    this.grip,
+    this.incline,
     this.note,
+    this.weight,
+    this.weight2,
+    this.sets,
+    this.reps,
+    this.lbs,
   });
 
-  factory Workout.fromJson(Map<String, dynamic> json) => Workout(
+  factory Exercise.fromJson(Map<String, dynamic> json) => Exercise(
     id: json["id"],
-    category: json["category"],
-    name: json["name"],
-    description: json["description"],
+    bodyPart: json["bodyPart"],
+    nickname: json["nickname"],
+    exercise: json["exercise"],
+    equipment: json["equipment"],
+    position: json["position"],
+    grip: json["grip"],
+    incline: json["incline"],
     note: json["note"],
+    weight: json["weight"],
+    weight2: json["weight2"],
+    sets: json["sets"],
+    reps: json["reps"],
+    lbs: json["lbs"],
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
-    "category": category,
-    "name": name,
-    "description": description,
+    "bodyPart": bodyPart,
+    "nickname": nickname,
+    "exercise": exercise,
+    "equipment": equipment,
+    "position": position,
+    "grip": grip,
+    "incline": incline,
     "note": note,
+    "weight": weight,
+    "weight2": weight2,
+    "sets": sets,
+    "reps": reps,
+    "lbs": lbs,
   };
 }

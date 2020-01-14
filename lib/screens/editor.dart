@@ -47,6 +47,7 @@ class _BuildEditorState extends State<BuildEditor> {
   bool sliderSetBool = true;
   bool secondSetSliderBool = false;
   String secondSetLabel;
+  String wtUnit = 'lbs';
 
   double singleWeightValue = 0;
   bool checkWeightBool = false;
@@ -919,10 +920,17 @@ class _BuildEditorState extends State<BuildEditor> {
                     width: 90,
                     child: Column(
                       children: <Widget>[
-                        Text(
-                          'Wt',
-                          style:
-                              TextStyle(fontFamily: previewFont, fontSize: 25),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: <Widget>[
+                            Text(
+                              'Wt',
+                              style:
+                                  TextStyle(fontFamily: previewFont, fontSize: 25),
+                            ),
+                            Text(wtUnit,style: TextStyle(fontSize: 14),),
+                          ],
                         ),
                         Text(
                           name,
