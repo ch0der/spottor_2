@@ -21,7 +21,9 @@ class Exercise {
   String weight;
   String weight2;
   String sets;
+  String sets2;
   String reps;
+  String reps2;
   bool lbs;
 
   Exercise({
@@ -37,7 +39,9 @@ class Exercise {
     this.weight,
     this.weight2,
     this.sets,
+    this.sets2,
     this.reps,
+    this.reps2,
     this.lbs,
   });
 
@@ -54,8 +58,10 @@ class Exercise {
     weight: json["weight"],
     weight2: json["weight2"],
     sets: json["sets"],
+    sets2: json["sets2"],
     reps: json["reps"],
-    lbs: json["lbs"],
+    reps2: json["reps2"],
+    lbs: json["lbs"] == 1,
   );
 
   Map<String, dynamic> toJson() => {
@@ -71,7 +77,9 @@ class Exercise {
     "weight": weight,
     "weight2": weight2,
     "sets": sets,
+    "sets2": sets2,
     "reps": reps,
+    "reps2": reps2,
     "lbs": lbs,
   };
 }
