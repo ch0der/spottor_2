@@ -103,9 +103,30 @@ class _BuildEditorState extends State<BuildEditor> {
             height: 30,
           ),
           workoutPreview(),
+          submitIcon(),
 
         ],
       ),
+    );
+  }
+
+  submitIcon(){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        IconButton(
+
+          iconSize:60,
+          icon: Icon(Icons.clear),
+          onPressed: (){},
+        ),
+        IconButton(
+
+          iconSize:60,
+          icon: Icon(Icons.save),
+          onPressed: (){},
+        ),
+      ],
     );
   }
 
