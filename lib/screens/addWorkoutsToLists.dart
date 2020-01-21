@@ -3,6 +3,9 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'myWorkoutSelection.dart';
+import 'package:spottor_2/resources/blocs/workoutBloc.dart';
+import 'package:spottor_2/newWorkoutModel.dart';
+import 'dart:async';
 
 class AddWorkoutsToList extends StatefulWidget {
   @override
@@ -10,6 +13,15 @@ class AddWorkoutsToList extends StatefulWidget {
 }
 
 class _AddWorkoutsToListState extends State<AddWorkoutsToList> {
+
+
+  Stream stream;
+  @override
+  void dispose() {
+    super.dispose();
+  }
+  final bloc = ExerciseBloc2();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,45 +29,119 @@ class _AddWorkoutsToListState extends State<AddWorkoutsToList> {
         children: <Widget>[
           Container(
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
-                Expanded(child: Container(
-                  child:     Container(
-                    child: Text('List Builder',style: TextStyle(fontSize: 15,),),
-                  ),
-                ),),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Icon(Icons.list,color: Colors.grey[400],),
-                    Container(width: 5,),
-                    Icon(Icons.image,color: Colors.black,),
+                    Icon(
+                      Icons.list,
+                      color: Colors.grey[400],
+                    ),
+                    Container(
+                      width: 5,
+                    ),
+                    Icon(
+                      Icons.image,
+                      color: Colors.black,
+                    ),
                   ],
                 ),
               ],
             ),
           ),
-          Container(height: 15,),
-          listBuilder(),
           Container(
-            height: 75,
+            height: 25,
+          ),
+          Expanded(
+            child: Container(
+              child: Row(
+                children: <Widget>[
+                  columnA(),
+                  columnB(),
+                ],
+              ),
+            ),
           ),
         ],
       ),
     );
   }
-  listBuilder(){
-    return Row(
-      children: <Widget>[
-        Expanded(
-          child: Center(
-            child: Container(
-              color: Colors.black,
-              width: 1,
+
+  columnA() {
+    return Expanded(
+      child: Container(
+        color: Colors.red,
+        child: Column(
+          children: <Widget>[
+            Expanded(
+              child: Container(
+                child: listPreview(bloc),
+              ),
             ),
-          ),
+            Container(
+              alignment: Alignment.bottomRight,
+              child: Icon(
+                Icons.add_circle,
+                size: 40,
+              ),
+            ),
+          ],
         ),
-      ],
+      ),
+    );
+  }
+
+  columnB() {
+    return Expanded(
+      child: Container(
+        color: Colors.blue,
+        child: Column(
+          children: <Widget>[
+            Expanded(
+              child: Container(),
+            ),
+            Container(
+              alignment: Alignment.bottomRight,
+              child: Icon(
+                Icons.add_circle_outline,
+                size: 40,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  listPreview(ExerciseBloc2 bloc) {
+    return StreamBuilder<List<Exercise>>(
+      stream: bloc.exercises,
+      builder: (BuildContext context, AsyncSnapshot<List<Exercise>> snapshot) {
+        if (snapshot.hasData) {
+          return Container(
+            child: ListView.builder(
+              itemCount: snapshot.data.length,
+              itemBuilder: (BuildContext context, int index) {
+                Exercise item = snapshot.data[index];
+                int _ind = index +1;
+                return ListTile(
+                  title: Column(
+                    children: <Widget>[
+                      Text('$_ind'),
+                      Text(item.nickname),
+                      Text(item.bodyPart.toString(),),
+                      Text(item.weight.toString()),
+                    ],
+                  ),
+                );
+              },
+            ),
+          );
+        } else
+          return Center(child: CircularProgressIndicator(),);
+      },
     );
   }
 }

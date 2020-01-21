@@ -4,10 +4,15 @@
 
 import 'dart:convert';
 
-Exercise exerciseFromJson(String str) => Exercise.fromJson(json.decode(str));
+Exercise exerciseFromJson(String str) {
+  final jsonData = json.decode(str);
+  return Exercise.fromMap(jsonData);
+}
 
-String exerciseToJson(Exercise data) => json.encode(data.toJson());
-
+String exerciseToJson(Exercise data) {
+  final dyn = data.toMap();
+  return json.encode(dyn);
+}
 class Exercise {
   int id;
   String bodyPart;
@@ -18,7 +23,7 @@ class Exercise {
   String grip;
   String incline;
   String note;
-  String weight;
+  int weight;
   String weight2;
   String sets;
   String sets2;
@@ -45,7 +50,7 @@ class Exercise {
     this.lbs,
   });
 
-  factory Exercise.fromJson(Map<String, dynamic> json) => Exercise(
+  factory Exercise.fromMap(Map<String, dynamic> json) => Exercise(
     id: json["id"],
     bodyPart: json["bodyPart"],
     nickname: json["nickname"],
@@ -64,7 +69,7 @@ class Exercise {
     lbs: json["lbs"] == 1,
   );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toMap() => {
     "id": id,
     "bodyPart": bodyPart,
     "nickname": nickname,

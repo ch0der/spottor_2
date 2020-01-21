@@ -19,7 +19,7 @@ class DBProvider {
 
   initDB() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    String path = join(documentsDirectory.path, "DB.db");
+    String path = join(documentsDirectory.path, "DB8.db");
     return await openDatabase(
       path,
       version: 1,
@@ -27,7 +27,7 @@ class DBProvider {
       onCreate: (Database db, int version) async {
         await db.execute("CREATE TABLE Exercise ("
             "id INTEGER PRIMARY KEY,"
-            "bodypart TEXT,"
+            "bodyPart TEXT,"
             "nickname TEXT,"
             "exercise TEXT,"
             "equipment TEXT,"
@@ -58,4 +58,17 @@ class DBProvider {
 
     return raw;
   }
+  Future<List<Exercise>> getAllExercises() async {
+    final db = await database;
+    var res = await db.query("Exercise");
+    List<Exercise> list =
+    res.isNotEmpty ? res.map((c) => Exercise.fromMap(c)).toList() : [];
+    return list;
+  }
+  deleteExercise(int id)async{
+    final db = await database;
+    return db.delete("Exercise", where: "id = ?", whereArgs: [id]);
+  }
+
+
 }

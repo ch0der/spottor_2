@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:spottor_2/widgets/background_pad.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:spottor_2/resources/blocs/workoutBloc.dart';
+import 'package:spottor_2/newWorkoutModel.dart';
+import 'dart:async';
 
 class BuildEditor extends StatefulWidget {
   @override
@@ -10,10 +13,15 @@ class BuildEditor extends StatefulWidget {
 }
 
 class _BuildEditorState extends State<BuildEditor> {
+
+
+List<Exercise>testEx = [
+  Exercise(bodyPart:'strting',nickname: 'dogdi1ck',weight: 5,exercise: 'dogdick',equipment: 'dogdick',position: 'dogdick',grip: 'dogdick',incline: 'dogdick',note: 'dogdick',weight2: 'dogdick',sets2: 'dogdick',lbs: true,reps2: 'dogdick',reps: 'dogdick'),
+  Exercise(bodyPart: "dogdic21k",nickname: 'dogdi2ck',weight: 5,exercise: 'dogdick',equipment: 'dogdick',position: 'dogdick',grip: 'dogdick',incline: 'dogdick',note: 'dogdick',weight2: 'dogdick',sets2: 'dogdick',lbs: true,reps2: 'dogdick',reps: 'dogdick'),
+];
+
+
   @override
-  initState() {
-    super.initState();
-  }
 
   // variables for 'details' section
   int weightDisplay = 0;
@@ -58,6 +66,17 @@ class _BuildEditorState extends State<BuildEditor> {
   final double sliderWidth = .72;
   String previewFont = 'PT';
   final Color switchColor = Colors.green;
+
+  Exercise exerciseTest;
+
+  final bloc = ExerciseBloc2();
+
+
+
+  @override
+  void dispose(){
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -110,6 +129,8 @@ class _BuildEditorState extends State<BuildEditor> {
     );
   }
 
+
+
   submitIcon(){
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -124,7 +145,14 @@ class _BuildEditorState extends State<BuildEditor> {
 
           iconSize:60,
           icon: Icon(Icons.save),
-          onPressed: (){},
+          onPressed: ()async{
+            Exercise rnd = Exercise(bodyPart: "dogdi3223c21k",nickname: nicknameText,weight: 5,exercise: 'dogdick',equipment: 'dogdick',position: 'dogdick',grip: 'dogdick',incline: 'dogdick',note: 'dogdick',weight2: 'dogdick',sets2: 'dogdick',lbs: true,reps2: 'dogdick',reps: 'dogdick');
+            bloc.add(rnd);
+
+            print('working');
+
+
+          },
         ),
       ],
     );
