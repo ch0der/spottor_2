@@ -19,7 +19,7 @@ class DBProvider {
 
   initDB() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    String path = join(documentsDirectory.path, "DB8.db");
+    String path = join(documentsDirectory.path, "DB11.db");
     return await openDatabase(
       path,
       version: 1,
@@ -34,6 +34,7 @@ class DBProvider {
             "position TEXT,"
             "grip TEXT,"
             "incline TEXT,"
+            "note TEXT,"
             "weight INTEGER,"
             "weight2 INTEGER,"
             "sets INTEGER,"
@@ -50,9 +51,9 @@ class DBProvider {
     final db = await database;
     var table = await db.rawQuery("SELECT MAX(id)+1 as id FROM Exercise");
     int id = table.first["id"];
-    var raw = await db.rawInsert("INSERT into Exercise (id,bodypart,nickname,exercise,equipment,position,grip,incline,weight,weight2,sets,sets2,reps,reps2,lbs)"
-        " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
-        [id, newExercise.bodyPart, newExercise.nickname,newExercise.exercise,newExercise.equipment,newExercise.position,newExercise.grip,newExercise.incline,
+    var raw = await db.rawInsert("INSERT into Exercise (id,bodyPart,nickname,exercise,equipment,position,grip,incline,note,weight,weight2,sets,sets2,reps,reps2,lbs)"
+        " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+        [id, newExercise.bodyPart, newExercise.nickname,newExercise.exercise,newExercise.equipment,newExercise.position,newExercise.grip,newExercise.incline,newExercise.note,
           newExercise.weight,newExercise.weight2,newExercise.sets,newExercise.sets2,newExercise.reps,newExercise.reps2,newExercise.lbs]
     );
 

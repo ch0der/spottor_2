@@ -24,11 +24,11 @@ class Exercise {
   String incline;
   String note;
   int weight;
-  String weight2;
-  String sets;
-  String sets2;
-  String reps;
-  String reps2;
+  int weight2;
+  int sets;
+  int sets2;
+  int reps;
+  int reps2;
   bool lbs;
 
   Exercise({

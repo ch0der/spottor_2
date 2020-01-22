@@ -15,10 +15,6 @@ class BuildEditor extends StatefulWidget {
 class _BuildEditorState extends State<BuildEditor> {
 
 
-List<Exercise>testEx = [
-  Exercise(bodyPart:'strting',nickname: 'dogdi1ck',weight: 5,exercise: 'dogdick',equipment: 'dogdick',position: 'dogdick',grip: 'dogdick',incline: 'dogdick',note: 'dogdick',weight2: 'dogdick',sets2: 'dogdick',lbs: true,reps2: 'dogdick',reps: 'dogdick'),
-  Exercise(bodyPart: "dogdic21k",nickname: 'dogdi2ck',weight: 5,exercise: 'dogdick',equipment: 'dogdick',position: 'dogdick',grip: 'dogdick',incline: 'dogdick',note: 'dogdick',weight2: 'dogdick',sets2: 'dogdick',lbs: true,reps2: 'dogdick',reps: 'dogdick'),
-];
 
 
   @override
@@ -62,6 +58,8 @@ List<Exercise>testEx = [
   bool sliderWeightBool = true;
   bool secondWeightSliderBool = false;
   String secondWeightLabel;
+  String emptyLabel = '-';
+  int emptyLabelInt = 0;
 
   final double sliderWidth = .72;
   String previewFont = 'PT';
@@ -146,7 +144,11 @@ List<Exercise>testEx = [
           iconSize:60,
           icon: Icon(Icons.save),
           onPressed: ()async{
-            Exercise rnd = Exercise(bodyPart: "dogdi3223c21k",nickname: nicknameText,weight: 5,exercise: 'dogdick',equipment: 'dogdick',position: 'dogdick',grip: 'dogdick',incline: 'dogdick',note: 'dogdick',weight2: 'dogdick',sets2: 'dogdick',lbs: true,reps2: 'dogdick',reps: 'dogdick');
+
+            submitHelper();
+
+            Exercise rnd = Exercise(bodyPart: bodyPartQ,nickname: nicknameText,weight: weightValues.start.toInt(),exercise: workoutName,equipment: equipmentQ,position: positionQ,grip: gripQ,incline: inclineQ,
+                note: commentText,weight2: weightValues.end.toInt(),sets2: 20,sets:0,lbs: true,reps2: repValues.end.toInt(),reps: repValues.start.toInt(),);
             bloc.add(rnd);
 
             print('working');
@@ -156,6 +158,42 @@ List<Exercise>testEx = [
         ),
       ],
     );
+  }
+  submitHelper(){
+    if(bodyPartQ == null){setState(() {
+      bodyPartQ = emptyLabel;
+    });} else{}
+
+    if(nicknameText == null){setState(() {
+      nicknameText = emptyLabel;
+    });} else{}
+
+    if(workoutName == null){setState(() {
+      workoutName = emptyLabel;
+    });} else{}
+
+    if(equipmentQ == null){setState(() {
+      equipmentQ = emptyLabel;
+    });} else{}
+
+    if(positionQ == null){setState(() {
+      positionQ = emptyLabel;
+    });} else{}
+
+    if(gripQ == null){setState(() {
+      gripQ = emptyLabel;
+    });} else{}
+
+    if(inclineQ == null){setState(() {
+      inclineQ = emptyLabel;
+    });} else{}
+
+    if( commentText == null){setState(() {
+      commentText = emptyLabel;
+    });} else{}
+
+
+
   }
 
   liftImg() {
@@ -390,6 +428,7 @@ List<Exercise>testEx = [
             'Delts',
             'Traps',
             'Triceps',
+            emptyLabel,
           ].map<DropdownMenuItem<String>>(
             (String value) {
               return DropdownMenuItem(
@@ -560,6 +599,7 @@ List<Exercise>testEx = [
                 'Sitting',
                 'Laying Down',
                 'Other',
+                emptyLabel,
               ].map<DropdownMenuItem<String>>(
                 (String value) {
                   return DropdownMenuItem(
@@ -595,7 +635,8 @@ List<Exercise>testEx = [
                 'Barbell',
                 'Machine',
                 'Body Weight',
-                'Other'
+                'Other',
+                emptyLabel,
               ].map<DropdownMenuItem<String>>(
                 (String value) {
                   return DropdownMenuItem(
@@ -630,7 +671,7 @@ List<Exercise>testEx = [
                   child: Text(''),
                 ),
           gripQ != null
-              ? Text('$gripQ' ' grip')
+              ? Text('$gripQ')
               : Container(
                   child: Text(''),
                 ),
@@ -651,6 +692,7 @@ List<Exercise>testEx = [
           items: <String>[
             'Narrow',
             'Wide',
+            emptyLabel,
           ].map<DropdownMenuItem<String>>(
             (String value) {
               return DropdownMenuItem(
@@ -682,6 +724,7 @@ List<Exercise>testEx = [
             'Underhand',
             'Sumo',
             'Other',
+            emptyLabel,
           ].map<DropdownMenuItem<String>>(
             (String value) {
               return DropdownMenuItem(
@@ -713,6 +756,7 @@ List<Exercise>testEx = [
             'Slight Decline',
             'Large Incline',
             'Large Decline',
+            emptyLabel,
           ].map<DropdownMenuItem<String>>(
             (String value) {
               return DropdownMenuItem(
@@ -753,6 +797,7 @@ List<Exercise>testEx = [
             'Shoulders/Delts',
             'Traps',
             'Triceps',
+            emptyLabel,
           ].map<DropdownMenuItem<String>>(
             (String value) {
               return DropdownMenuItem(

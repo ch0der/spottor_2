@@ -127,12 +127,16 @@ class _AddWorkoutsToListState extends State<AddWorkoutsToList> {
                 Exercise item = snapshot.data[index];
                 int _ind = index +1;
                 return ListTile(
+                  onLongPress: (){
+                    bloc.delete(item.id);
+                  },
                   title: Column(
                     children: <Widget>[
                       Text('$_ind'),
                       Text(item.nickname),
                       Text(item.bodyPart.toString(),),
-                      Text(item.weight.toString()),
+                      Text('${item.weight.toString()}-${item.weight2.toString()}'),
+                      Text(item.note),
                     ],
                   ),
                 );
