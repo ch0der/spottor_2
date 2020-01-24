@@ -119,3 +119,6 @@ flutter:
     - family: PT
       fonts:
         - asset: assets/fonts/PTSerif-Regular.ttf
+    - family: Alata
+      fonts:
+        - asset: assets/fonts/alata.ttf

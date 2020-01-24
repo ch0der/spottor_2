@@ -19,6 +19,7 @@ class _AddWorkoutsToListState extends State<AddWorkoutsToList> {
   @override
   void dispose() {
     super.dispose();
+    bloc.dispose();
   }
   final bloc = ExerciseBloc2();
 
@@ -72,7 +73,7 @@ class _AddWorkoutsToListState extends State<AddWorkoutsToList> {
   columnA() {
     return Expanded(
       child: Container(
-        color: Colors.red,
+        color: Colors.red.withOpacity(.2),
         child: Column(
           children: <Widget>[
             Expanded(
@@ -96,7 +97,7 @@ class _AddWorkoutsToListState extends State<AddWorkoutsToList> {
   columnB() {
     return Expanded(
       child: Container(
-        color: Colors.blue,
+        color: Colors.blue.withOpacity(.2),
         child: Column(
           children: <Widget>[
             Expanded(
@@ -130,13 +131,11 @@ class _AddWorkoutsToListState extends State<AddWorkoutsToList> {
                   onLongPress: (){
                     bloc.delete(item.id);
                   },
-                  title: Column(
+                  title: Row(
                     children: <Widget>[
-                      Text('$_ind'),
+                      Text('$_ind.  '),
+                      Container(width: 3,),
                       Text(item.nickname),
-                      Text(item.bodyPart.toString(),),
-                      Text('${item.weight.toString()}-${item.weight2.toString()}'),
-                      Text(item.note),
                     ],
                   ),
                 );
